@@ -2,8 +2,10 @@ import './App.css';
 import React from 'react';
 import LoginAndRegister from './containers/LoginAndRegister.js'
 import LoggedIn from './components/LoggedIn.js'
+import MainPage from './containers/MainPage.js'
 import { connect } from 'react-redux';
 import { setUser } from './actions/users.js';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 class App extends React.Component {
 state = {
@@ -45,7 +47,7 @@ state = {
       return (
       <div className="App">
        {/* {sessionStorage.getItem('token') !== null ? <LoggedIn userData={this.state.userData} /> : <LoginAndRegister handleUserSession={this.handleUserSession} /> }     */}
-       {sessionStorage.getItem('token') !== null ? <LoggedIn /> : <LoginAndRegister handleLogin={this.handleLogin}/> }    
+       {sessionStorage.getItem('token') !== null ? <MainPage /> : <LoginAndRegister handleLogin={this.handleLogin}/> }    
 
       </div>
       )}
