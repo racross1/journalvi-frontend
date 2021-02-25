@@ -53,6 +53,7 @@ class Login extends React.Component {
                 this.props.handleLogin()
             }
         })
+        // .then(user => user.error ? 'yes error': 'no error')
     }
 
     render() {

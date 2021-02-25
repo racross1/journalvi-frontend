@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
 import LoginAndRegister from './containers/LoginAndRegister.js'
-import LoggedIn from './components/LoggedIn.js'
 import MainPage from './containers/MainPage.js'
 import { connect } from 'react-redux';
 import { setUser } from './actions/users.js';

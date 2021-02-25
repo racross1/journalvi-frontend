@@ -17,6 +17,10 @@ class CreateEntry extends React.Component{
             [e.target.name]: e.target.value
         })
     }
+
+    handleDateChange = (e) => {
+        console.log(typeof e.target.value)
+    }
     
     handleSubmit = (e) => {
         e.preventDefault()
@@ -43,25 +47,18 @@ class CreateEntry extends React.Component{
         .then(resp => resp.json())
         .then(console.log)
     }
-
-
-    // fetch('http://localhost:3000/login', {
-    //         method: "POST",
-    //         headers: {
-    //             'Content-Type': 'application/json',           
-    //         }, 
-    //         body: JSON.stringify({
-    //             username: this.state.username,
-    //             password: this.state.password
-    //         })
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(u
     
     render(){
         return (
         <div  className='right-pane'>
             <Form id='entry-form' onSubmit={this.handleSubmit}>
+                
+                <Form.Group controlId="form-response-3">
+                    <Form.Label>Entry Date</Form.Label>
+                    <Form.Control type="date" name='date_of_birth' onChange={this.handleDateChange}/>
+                   
+                </Form.Group>
+
                 <Form.Group controlId="form-response-1">
                     <Form.Label>1. How was your morning?</Form.Label>
                     <Form.Control as="textarea" rows={3} name='How was your morning?' onChange={this.handleChange}/>
@@ -85,6 +82,8 @@ class CreateEntry extends React.Component{
                     Limit [tbd] characters
                     </Form.Text>
                 </Form.Group>
+
+               
 
                 <Button variant="primary" type="submit" >
                     Submit

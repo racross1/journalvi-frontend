@@ -94,9 +94,12 @@ div.content {
 }
 
 .right-pane{
-    padding: 50px 0;
-    border: solid gray;
-    margin: 60px;
+  padding-top: 10px;
+  padding-right: 90px;
+  padding-bottom: 10px;
+  padding-left: 90px;
+  border: solid gray;
+  margin: 60px;
 }
 
 #dynamic-pane{
