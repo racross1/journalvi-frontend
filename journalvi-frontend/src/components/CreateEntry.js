@@ -9,17 +9,12 @@ class CreateEntry extends React.Component{
     state = {
         'How was your morning?': '',
         'How was your afternoon?': '',
-        'How was your evening?': ''
+        'How was your evening?': '',
+        date: null
     }
     
     handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleDateChange = (e) => {
-        console.log(typeof e.target.value)
+        this.setState({[e.target.name]: e.target.value})
     }
     
     handleSubmit = (e) => {
@@ -27,6 +22,7 @@ class CreateEntry extends React.Component{
         let token = sessionStorage.getItem('token')
         
         let stateObj = this.state
+
         let entryObj = {}
         let i = 1
         for (const pro in stateObj) {
@@ -34,6 +30,7 @@ class CreateEntry extends React.Component{
             i++
         }
         
+        console.log(entryObj)
         entryObj.user_id = this.props.user.user.id
 
         fetch('http://127.0.0.1:3000/entries', {
@@ -55,7 +52,7 @@ class CreateEntry extends React.Component{
                 
                 <Form.Group controlId="form-response-3">
                     <Form.Label>Entry Date</Form.Label>
-                    <Form.Control type="date" name='date_of_birth' onChange={this.handleDateChange}/>
+                    <Form.Control type="date" name='date' onChange={this.handleChange}/>
                    
                 </Form.Group>
 
