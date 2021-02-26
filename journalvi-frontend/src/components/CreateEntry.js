@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import { addEntry } from '../actions/entries.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -42,7 +43,7 @@ class CreateEntry extends React.Component{
             body: JSON.stringify(entryObj)
         })
         .then(resp => resp.json())
-        .then(console.log)
+        .then(entry => this.props.addEntry(entry))
     }
     
     render(){
@@ -97,4 +98,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps)(CreateEntry);
+export default connect(mapStateToProps, { addEntry })(CreateEntry);
