@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { setUser } from '../actions/users.js';
+import { populateEntries } from '../actions/entries.js'
 
 class Login extends React.Component {
 
@@ -34,27 +35,31 @@ class Login extends React.Component {
             })
         })
         .then(resp => resp.json())
-        // .then(user => {
-        //     user.message === "Invalid username or password" ? alert("Invalid username or password") : this.props.handleUserSession(user)})
-        // .then(user => {
-        //     if (user.message === "Invalid username or password") {
-        //         alert("Invalid username or password")
-        //     } else{
-        //         sessionStorage.setItem('token', user.jwt)
-        //         this.props.handleUserSession(user)
-        //     }
-        // })
         .then(user => {
             if (user.message === "Invalid username or password") {
                 alert("Invalid username or password")
             } else{
                 sessionStorage.setItem('token', user.jwt)
                 this.props.setUser(user)
+                this.getUserEntries()
                 this.props.handleLogin()
             }
         })
         // .then(user => user.error ? 'yes error': 'no error')
     }
+
+    getUserEntries = () => {
+        let token = sessionStorage.getItem('token')
+        fetch('http://127.0.0.1:3000/entries', {
+            method: "GET",
+            headers: {
+              Authorization: `bearer ${token}`,
+            }
+        })
+        .then(resp => resp.json())
+        .then(userEntries => this.props.populateEntries(userEntries))
+    }
+
 
     render() {
         return (
@@ -80,4 +85,4 @@ class Login extends React.Component {
 }
 
 
-export default connect(null, {setUser})(Login);
+export default connect(null, {setUser, populateEntries})(Login);

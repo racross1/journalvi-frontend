@@ -1,6 +1,6 @@
 export default userReducer
 function userReducer(state = [], action) {
-    let userData
+    // let userData
     
     switch (action.type) {
         case 'SET_USER':
