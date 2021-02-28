@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { setUser } from '../actions/users.js';
-import { populateEntries } from '../actions/entries.js'
+// import { populateEntries } from '../actions/entries.js'
 
 class Login extends React.Component {
 
@@ -41,24 +41,29 @@ class Login extends React.Component {
             } else{
                 sessionStorage.setItem('token', user.jwt)
                 this.props.setUser(user)
-                this.getUserEntries()
+                // this.getUserEntries()
                 this.props.handleLogin()
+                //the below redirect seems to mess up the initial entry populate method
+                // window.location = 'http://localhost:3001/welcome'
             }
         })
         // .then(user => user.error ? 'yes error': 'no error')
     }
 
-    getUserEntries = () => {
-        let token = sessionStorage.getItem('token')
-        fetch('http://127.0.0.1:3000/entries', {
-            method: "GET",
-            headers: {
-              Authorization: `bearer ${token}`,
-            }
-        })
-        .then(resp => resp.json())
-        .then(userEntries => this.props.populateEntries(userEntries))
-    }
+    //moved get user entries to on componentDidMount on MainPage. Leaving this here until have gone through
+    //a few more rounds of testing to make sure that the move didn't create bugs
+    
+    // getUserEntries = () => {
+    //     let token = sessionStorage.getItem('token')
+    //     fetch('http://127.0.0.1:3000/entries', {
+    //         method: "GET",
+    //         headers: {
+    //           Authorization: `bearer ${token}`,
+    //         }
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(userEntries => this.props.populateEntries(userEntries))
+    // }
 
 
     render() {
@@ -85,4 +90,4 @@ class Login extends React.Component {
 }
 
 
-export default connect(null, {setUser, populateEntries})(Login);
+export default connect(null, {setUser})(Login);

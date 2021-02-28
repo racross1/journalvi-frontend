@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux'
 import rootReducer from './reducers/index'
 import {BrowserRouter} from 'react-router-dom'
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
-let store = createStore(
-  rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+
+const middlewares = [thunk]
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer,composeEnhancers(applyMiddleware(...middlewares)))
 
 ReactDOM.render(
   <React.StrictMode>

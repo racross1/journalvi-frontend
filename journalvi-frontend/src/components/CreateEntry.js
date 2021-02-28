@@ -4,14 +4,18 @@ import { addEntry } from '../actions/entries.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
+import { Redirect } from 'react-router-dom'
+import {compose} from "redux"
+import { withRouter } from "react-router"
 
 class CreateEntry extends React.Component{
     state = {
         'How was your morning?': '',
         'How was your afternoon?': '',
         'How was your evening?': '',
-        date: null
+        date: null,
+        redirect: false,
+        entryId: false
     }
     
     handleChange = (e) => {
@@ -26,13 +30,16 @@ class CreateEntry extends React.Component{
 
         let entryObj = {}
         let i = 1
-        for (const pro in stateObj) {
-            entryObj[`p${i}`] = {prompt: pro, response: this.state[pro]}
-            i++
-        }
+        while (i < 5) {
+            for (const pro in stateObj) {
+                entryObj[`p${i}`] = {prompt: pro, response: this.state[pro]}
+                i++
+                }
+            }
         
-        console.log(entryObj)
+       
         entryObj.user_id = this.props.user.user.id
+        e.target.reset()
 
         fetch('http://127.0.0.1:3000/entries', {
             method: "POST",
@@ -43,12 +50,30 @@ class CreateEntry extends React.Component{
             body: JSON.stringify(entryObj)
         })
         .then(resp => resp.json())
-        .then(entry => this.props.addEntry(entry))
+        .then(entry => {
+            this.props.addEntry(entry)
+            this.setState({redirect: true})
+            this.setState({entryId: entry.id})
+            // this.props.history.push(`/entries/${entry.id}`)
+            // return <Redirect to={`/entries/${entry.id}`}/>
+        })
     }
-    
+
+    componentWillUnmount = () => {
+        this.setState({
+            'How was your morning?': '',
+            'How was your afternoon?': '',
+            'How was your evening?': '',
+            date: null,
+            redirect: false,
+            entryId: false
+        })
+    }
+
     render(){
         return (
         <div  className='right-pane'>
+            {this.state.entryId ?  <Redirect to={`/entries/${this.state.entryId}`}/> :
             <Form id='entry-form' onSubmit={this.handleSubmit}>
                 
                 <Form.Group controlId="form-response-3">
@@ -87,6 +112,7 @@ class CreateEntry extends React.Component{
                     Submit
                 </Button>
             </Form>
+            }
         </div>
             )
         }
@@ -98,4 +124,7 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, { addEntry })(CreateEntry);
+export default compose(
+    withRouter, 
+    connect(mapStateToProps, { addEntry })
+    )(CreateEntry);
