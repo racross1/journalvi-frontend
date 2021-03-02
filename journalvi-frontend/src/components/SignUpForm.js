@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { setUser } from '../actions/users.js';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class SignUpForm extends Component {
 
@@ -49,15 +51,6 @@ class SignUpForm extends Component {
             body: JSON.stringify(newUser)
         })
         .then(resp => resp.json())
-        // .then(registeredUser => {
-        //     sessionStorage.setItem('token', registeredUser.jwt)
-        //     this.props.handleUserSession(registeredUser)
-        // })
-        // .then(user => {
-        //     sessionStorage.setItem('token', user.jwt)
-        //     this.props.setUser(user)
-        //     this.props.handleLogin()
-        // })
         .then(user => {
             if (user.error === "failed to create user") {
                 alert("Username not available")
@@ -71,8 +64,31 @@ class SignUpForm extends Component {
     render() {
         return (
             <div className="sign-up">
-                <form onSubmit={(e) => this.handleSubmit(e)} >
-                    <h3>Sign Up</h3>
+                <Form id='signup-form' onSubmit={(e) => this.handleSubmit(e)}>
+                <h5>Please Sign In</h5>
+                
+                <Form.Group controlId="signup-form-username">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control size='sm' onChange={(e) => this.handleChangeUsername(e)} type="text" className="form-control" placeholder="Enter Username" />
+                </Form.Group>
+                
+                <Form.Group controlId="singup-form-password">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control size='sm' onChange={(e) => this.handleChangePassword(e)} type="password" className="form-control" placeholder="Enter password" />
+                </Form.Group>
+                
+                <Button type="submit">Sign Up</Button><br></br>
+
+            </Form>
+
+            <Button  onClick={this.props.showRegisterForm}>Already registered?</Button>
+                
+                
+                
+                
+                
+                {/* <form onSubmit={(e) => this.handleSubmit(e)} >
+                    <h5>Sign Up</h5>
 
                     <div className="form-group">
                         <label>Username</label>
@@ -89,7 +105,7 @@ class SignUpForm extends Component {
                 </form>
 
              <button  onClick={this.props.showRegisterForm} className="btn btn-primary btn-block">Already registered?</button>
-            
+             */}
             </div> 
         );
     }

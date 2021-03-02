@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import { setUser } from '../actions/users.js';
 // import { populateEntries } from '../actions/entries.js'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 class Login extends React.Component {
 
@@ -53,7 +55,25 @@ class Login extends React.Component {
     render() {
         return (
             <div className="form-container"> 
-            <form onSubmit={(e) => this.handleLogin(e)}>
+             <Form id='login-form' onSubmit={this.handleLogin}>
+             <h5>Please Sign In</h5>
+                
+                <Form.Group controlId="login-form-username">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control size='sm' onChange={(e) => this.handleChangeUsername(e)} type="username" className="form-control" placeholder="Enter Username"/>
+                </Form.Group>
+                
+                <Form.Group controlId="login-form-password">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control size='sm' onChange={(e) => this.handleChangePassword(e)} type="password" className="form-control" placeholder="Enter password" />
+                </Form.Group>
+                
+                <Button type="submit">Log In</Button><br></br>
+
+            </Form>
+            
+            
+            {/* <form onSubmit={(e) => this.handleLogin(e)}>
                 <h5>Please Sign In</h5>
                 <div className="form-group">
                     <label>Username</label>
@@ -63,11 +83,11 @@ class Login extends React.Component {
                     <label>Password</label>
                     <input onChange={(e) => this.handleChangePassword(e)} type="password" className="form-control" placeholder="Enter password" />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">Log In</button><br></br>
+                <Button type="submit">Log In</Button><br></br>
                 
-            </form>
+            </form> */}
 
-            <button  onClick={this.props.showRegisterForm} className="btn btn-primary btn-block">Create an Account?</button>
+            <Button  onClick={this.props.showRegisterForm}>Create an Account</Button>
             </div>
         );
     }

@@ -58,9 +58,9 @@ export default class EntryList extends React.Component{
         let day = entryDateArr[2]
         let year = entryDateArr[3]
        
-        return <tr>
+        return <tr key={`${entry.id}`}>
            
-             <td><Link to={`/entries/${entry.id}`}><Button  variant={'secondary'}>Detail</Button></Link></td>
+            <td><Link to={`/entries/${entry.id}`}><Button  variant={'secondary'}>Detail</Button></Link></td>
             <td>{weekDay}</td>
             <td>{month}</td>
             <td>{day}</td>
