@@ -15,6 +15,9 @@ export default class Navbar extends React.Component {
                 <Link to='/entries' className='ui-button'>
                 All Entries
                 </Link>
+                <Link onClick={() => this.props.logout()} to='/' className='ui-button'>
+                Logout
+                </Link>
             </div>
         )
     }

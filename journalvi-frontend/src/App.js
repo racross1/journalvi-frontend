@@ -32,6 +32,13 @@ state = {
       loggedIn: true
     })
   }
+
+  logout = () => {
+    sessionStorage.clear() 
+    this.setState({
+      loggedIn: false 
+    })
+  }
   //make this in redux
   // handleUserSession = (user) => {
     
@@ -46,7 +53,7 @@ state = {
       return (
       <div className="App">
        {/* {sessionStorage.getItem('token') !== null ? <LoggedIn userData={this.state.userData} /> : <LoginAndRegister handleUserSession={this.handleUserSession} /> }     */}
-       {sessionStorage.getItem('token') !== null ? <MainPage /> : <LoginAndRegister handleLogin={this.handleLogin}/> }    
+       {sessionStorage.getItem('token') !== null ? <MainPage logout={this.logout}/> : <LoginAndRegister handleLogin={this.handleLogin}/> }    
 
       </div>
       )}

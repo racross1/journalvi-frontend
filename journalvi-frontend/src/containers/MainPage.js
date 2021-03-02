@@ -28,7 +28,7 @@ class MainPage extends React.Component {
         // console.log(this.props.entryReducer.entries)
         return (
         <div className="main-page">
-        <Navbar />
+        <Navbar logout={this.props.logout}/>
         {this.props.requesting ? "Loading page..." : <DynamicPane entries={this.props.entries}/>}
         </div>
     );
