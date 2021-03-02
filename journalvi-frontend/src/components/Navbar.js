@@ -8,7 +8,7 @@ export default class Navbar extends React.Component {
     render () {
         return (
             <div className="sidebar">
-                Hello this is side nav
+               
                 <Link to='/entries/new' className='ui-button'>
                 Create New Entry
                 </Link>

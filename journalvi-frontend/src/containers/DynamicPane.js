@@ -18,7 +18,9 @@ export default class DynamicPane extends React.Component{
             <Switch>
                 <Route exact path="/welcome" component={Welcome}/>
                 <Route exact path="/entries/new" component={CreateEntry} />
-                <Route exact path="/entries" component={EntryList} />
+                <Route exact path="/entries" render={() => {
+                    return <EntryList entries={this.props.entries}/>
+                    }} />
                 <Route exact path="/entries/:id" render={(routerProps) => {
                     let entry = this.props.entries.find(ent => ent.id === parseInt(routerProps.match.params.id))
                 return <ShowEntry entry={entry}/>
