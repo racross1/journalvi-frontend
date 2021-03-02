@@ -19,9 +19,9 @@ export default class LoginAndRegister extends React.Component {
     
     render() {
         return(
-            <div>
+            <div className='login-box'>
                 <div>
-                    <h1>Welcome to [AppName]!</h1>
+                    <h3>Welcome to JournalVi!</h3>
                 </div>
             {/* {this.state.toggle === false ? <Login showRegisterForm={this.showRegisterForm} handleUserSession={this.props.handleUserSession} /> : <SignUpForm showRegisterForm={this.showRegisterForm} handleUserSession={this.props.handleUserSession}/> } */}
             {this.state.toggle === false ? <Login showRegisterForm={this.showRegisterForm} handleLogin={this.props.handleLogin}/> : <SignUpForm showRegisterForm={this.showRegisterForm} handleLogin={this.props.handleLogin}/> }

@@ -3,13 +3,32 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Table from 'react-bootstrap/Table'
 import Card from 'react-bootstrap/Card'
 import {Link} from 'react-router-dom'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Dropdown from 'react-bootstrap/Dropdown'
+import Button from 'react-bootstrap/Button'
 
 
 
 export default class EntryList extends React.Component{
-  
-    sortEntries = () => {
-        return this.props.entries.sort((a,b) => a.date > b.date ? 1 : -1)
+  state = {
+      selectedEntries:[]
+  }
+
+    componentDidMount(){
+        this.showAllEntries()
+    }
+    
+    showAllEntries = () => {
+        let allEntriesSorted = this.sortEntries(this.props.entries)
+        this.setState({
+            selectedEntries: allEntriesSorted
+        })
+
+    }
+
+    sortEntries = (entries) => {
+        return entries.sort((a,b) => a.date > b.date ? 1 : -1)
     }
 
     dayColor = (entry) => {
@@ -24,9 +43,7 @@ export default class EntryList extends React.Component{
             case 'NEUTRAL':
                 return `rgba(255,193,7, ${scoreVal})`
             case 'MIXED':
-                return `rgba(0,123,255, ${scoreVal})`
-          
-                
+                return `rgba(0,123,255, ${scoreVal})`    
         }
     }
 
@@ -42,18 +59,22 @@ export default class EntryList extends React.Component{
         let year = entryDateArr[3]
        
         return <tr>
-            <td><Link to={`/entries/${entry.id}`}>{weekDay}</Link></td>
+           
+             <td><Link to={`/entries/${entry.id}`}><Button  variant={'secondary'}>Detail</Button></Link></td>
+            <td>{weekDay}</td>
             <td>{month}</td>
             <td>{day}</td>
             <td>{year}</td>
-            <td>{entry.agg_score_key}</td>
             <td>
-                {this.showAggScore(entry)}
+                {entry.agg_score_key}
                 <Card 
                     className="table-day-card"
                     style={{backgroundColor: this.dayColor(entry)}}
                 >
                 </Card>
+            </td>
+            <td>
+                {this.showAggScore(entry)}
             </td>
         </tr>
   
@@ -61,30 +82,108 @@ export default class EntryList extends React.Component{
 
     parseDate = (date) => {
         let d = new Date(date)
-        let dArr = String(d).split(" ")
+        let dPlusOne = new Date(d.setDate(d.getDate() + 1))
+        let dArr = String(dPlusOne).split(" ")
         return dArr
-        // let parsedDate = dArr.slice(0,3).join(" ")+', '+ dArr[3]
-        // return parsedDate
     }
 
+    handleMonthFilter = (e) => {
+        let filtEntries = this.props.entries.filter(entry => this.parseDate(entry.date)[1] === e.target.name)
+
+        this.setState({
+            selectedEntries: filtEntries
+        })
+    }
+
+    handleDoWFilter = (e) => {
+        let filtEntries = this.props.entries.filter(entry => this.parseDate(entry.date)[0] === e.target.name)
+
+        this.setState({
+            selectedEntries: filtEntries
+        })
+    }
+
+    handleSentimentFilter = (e) => {
+        let filtEntries = this.props.entries.filter(entry => entry.agg_score_key === e.target.name)
+
+        this.setState({
+            selectedEntries: filtEntries
+        })
+    }
     
     render(){
-        console.log(this.sortEntries())
         return (
         <div  className='entry-list'>
-            list of all entries
+            <div className='entry-list-header'>
+            Filter By:
+            <br></br>
+        <DropdownButton
+           as={ButtonGroup}
+           key={1}
+           id={`dropdown-variants-month`}
+           title={'Month'}
+           >
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Jan'>January</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Feb'>February</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Mar'>March</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Apr'>April</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='May'>May</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Jun'>June</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Jul'>July</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Aug'>August</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Sep'>September</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Oct'>October</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Nov'>November</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleMonthFilter} name='Dec'>December</Dropdown.Item>
+        <Dropdown.Divider />
+            <Dropdown.Item onClick={this.showAllEntries} name='all'>See All</Dropdown.Item>
+        </DropdownButton>
+
+        <DropdownButton
+           as={ButtonGroup}
+           key={2}
+           id={`dropdown-variants-DoW`}
+           title={'Day of Week'}
+           >
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Mon'>Monday</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Tue'>Tuesday</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Wed'>Wednesday</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Thu'>Thursday</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Fri'>Friday</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Sat'>Saturday</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleDoWFilter} name='Sun'>Sunday</Dropdown.Item>
+        <Dropdown.Divider />
+            <Dropdown.Item onClick={this.showAllEntries} name='all'>See All</Dropdown.Item>
+        </DropdownButton>
+
+        <DropdownButton
+           as={ButtonGroup}
+           key={3}
+           id={`dropdown-variants-sentiment`}
+           title={'Sentiment'}
+           >
+            <Dropdown.Item onClick={this.handleSentimentFilter} name='POSITIVE'>Positive</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleSentimentFilter} name='NEGATIVE'>Negative</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleSentimentFilter} name='NEUTRAL'>Neutral</Dropdown.Item>
+            <Dropdown.Item onClick={this.handleSentimentFilter} name='MIXED'>Mixed</Dropdown.Item>
+        <Dropdown.Divider />
+            <Dropdown.Item onClick={this.showAllEntries} name='all'>See All</Dropdown.Item>
+        </DropdownButton>
+        </div>
+           
             <Table hover>
                 <thead>
                 <tr>
+                    <th>Entry Detail</th>
                     <th>Day of Week</th>
                     <th>Month</th>
                     <th>Day</th>
                     <th>Year</th>
-                    <th>Entry Sentiment</th>
-                    <th>Entry Confidence Score</th>
+                    <th>Sentiment</th>
+                    <th>Confidence Score</th>
                 </tr>
                 </thead>
-                {this.sortEntries().map(ent => this.renderEntries(ent))}
+                {this.state.selectedEntries.map(ent => this.renderEntries(ent))}
             </Table>
         </div>
             )

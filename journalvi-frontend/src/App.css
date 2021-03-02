@@ -196,3 +196,22 @@ div.content {
   float: right;
   text-align: right;
 }
+
+.entry-list-header{
+  float: right;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.entry-list{
+  margin: 20px;
+}
+
+.login-box{
+  padding-top: 20px;
+  padding-right: 60px;
+  padding-bottom: 60px;
+  padding-left: 60px;
+  border: solid gray;
+  margin: 60px;
+}

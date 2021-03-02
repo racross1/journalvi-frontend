@@ -29,14 +29,17 @@ class ShowEntry extends React.Component{
     }
     
     parseDate = (date) => {
+        //for some reason dates are coming back as 1 day late
+        //add one day to each to get correct date
         let d = new Date(date)
-        let dArr = String(d).split(" ")
+        let dPlusOne = new Date(d.setDate(d.getDate() + 1))
+        let dArr = String(dPlusOne).split(" ")
         let parsedDate = dArr.slice(0,3).join(" ")+', '+ dArr[3]
         return parsedDate
     }
 
     dayColor = () => {
-        console.log(this.state.entry.prompts[0].prompt)
+        // console.log(this.state.entry.prompts[0].prompt)
         let entryScore = this.state.entry.agg_score_key
         let scoreVal = this.state.entry.agg_score - 0.1
        

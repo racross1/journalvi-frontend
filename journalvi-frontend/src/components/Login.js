@@ -43,34 +43,18 @@ class Login extends React.Component {
                 this.props.setUser(user)
                 // this.getUserEntries()
                 this.props.handleLogin()
-                //the below redirect seems to mess up the initial entry populate method
-                // window.location = 'http://localhost:3001/welcome'
+            
             }
         })
-        // .then(user => user.error ? 'yes error': 'no error')
+       
     }
-
-    //moved get user entries to on componentDidMount on MainPage. Leaving this here until have gone through
-    //a few more rounds of testing to make sure that the move didn't create bugs
-    
-    // getUserEntries = () => {
-    //     let token = sessionStorage.getItem('token')
-    //     fetch('http://127.0.0.1:3000/entries', {
-    //         method: "GET",
-    //         headers: {
-    //           Authorization: `bearer ${token}`,
-    //         }
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(userEntries => this.props.populateEntries(userEntries))
-    // }
 
 
     render() {
         return (
             <div className="form-container"> 
             <form onSubmit={(e) => this.handleLogin(e)}>
-                <h3>Please Sign In</h3>
+                <h5>Please Sign In</h5>
                 <div className="form-group">
                     <label>Username</label>
                     <input onChange={(e) => this.handleChangeUsername(e)} type="username" className="form-control" placeholder="Enter Username" />
