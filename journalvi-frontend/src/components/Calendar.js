@@ -3,7 +3,7 @@ import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, end
 // import startOfWeek from 'date-fns/start_of_week'
 // import addDays from 'date-fns/addDays'
 
-
+// const color = 'rgba(40,167,69)' 
 
 class Calendar extends React.Component {
   state = {
@@ -32,7 +32,7 @@ class Calendar extends React.Component {
   }
 
   renderDays() {
-    const dateFormat = "dddd";
+    const dateFormat = "EEEE";
     const days = [];
     // debugger
     let startDate = startOfWeek(this.state.currentMonth);
@@ -46,7 +46,7 @@ class Calendar extends React.Component {
         </div>
       );
     }
-    
+    // debugger
     return <div className="days row">{days}</div>;
   }
 
@@ -57,19 +57,26 @@ class Calendar extends React.Component {
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
 
+     
+
     const dateFormat = "d";
     const rows = [];
-
+    
     let days = [];
     let day = startDate;
     let formattedDate = "";
 
+    
     while (day <= endDate) {
+        
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
+        // debugger
+        // this.compareDates(day)
         days.push(
           <div
+            
             className={`col cell ${
               !isSameMonth(day, monthStart)
                 ? "disabled"
@@ -77,7 +84,8 @@ class Calendar extends React.Component {
             }`}
             key={day}
             onClick={() => this.onDateClick(parse(cloneDay))}
-          >
+            style={{background: this.compareDates(day)}}
+            >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
           </div>
@@ -91,6 +99,7 @@ class Calendar extends React.Component {
       );
       days = [];
     }
+    // debugger
     return <div className="body">{rows}</div>;
   }
 
@@ -112,7 +121,67 @@ class Calendar extends React.Component {
     });
   };
 
+//   componentDidMount() {
+//       this.compareDates()
+//   }
+  compareDates = (day) => {
+    // create object in separate function so don't have to create every time
+    //key formatted date, value entry, get array of keys, if found, d
+    //create object of key value pairs where key is formatted date and value is entry obj
+    //if found in keys return color for agg score. else return default color
+    // if day [month]!== current month return #fff else go through whole logic of matching stuff up
+    let parsedDayDate = this.parseCalDate(day)
+
+
+    let entryObj = {}
+    let entries = this.props.entries
+    entries.forEach(entry => {
+        let formattedEntryDate = this.parseEntryDate(entry.date)
+        return entryObj[formattedEntryDate] = entry
+    }) 
+    // console.log(Object.keys(entryObj).includes(parsedDayDate))
+    if (Object.keys(entryObj).includes(parsedDayDate)){
+        return this.dayColor(entryObj[parsedDayDate])
+    } else {
+        return '#fff'
+    }
+
+  }
+
+  parseEntryDate = (date) => {
+    let d = new Date(date)
+    let dPlusOne = new Date(d.setDate(d.getDate() + 1))
+    let dArr = String(dPlusOne).split(" ")
+    return dArr.slice(0,4).join(" ")
+
+  }
+
+  parseCalDate = (day) => {
+    let dayArr = String(day).split(" ")
+    return dayArr.slice(0,4).join(" ")
+  }
+
+  dayColor = (entry) => {
+    // console.log(this.state.entry.prompts[0].prompt)
+    let entryScore = entry.agg_score_key
+    let scoreVal = entry.agg_score - 0.1
+   
+    switch(entryScore) {
+        case 'POSITIVE':
+            return `rgba(40,167,69, ${scoreVal})` 
+        case 'NEGATIVE':
+            return `rgba(220,53,69, ${scoreVal})`
+        case 'NEUTRAL':
+            return `rgba(255,193,7, ${scoreVal})`
+        case 'MIXED':
+            return `rgba(0,123,255, ${scoreVal})`
+        default: 
+            return '#fff' 
+    }
+}
+
   render() {
+    // console.log(this.props.entries)
     return (
       <div className="calendar">
         {this.renderHeader()}
@@ -124,3 +193,19 @@ class Calendar extends React.Component {
 }
 
 export default Calendar;
+
+
+// code to compare entry dates with day as it appears in calendar
+// let d = new Date(date)
+// let dPlusOne = new Date(d.setDate(d.getDate() + 1))
+// let dArr = String(dPlusOne).split(" ")
+
+// dayArr = String(day).split(" ")
+// var dStart = dArr.slice(0,4).join(" ")
+// var dayStart = dayArr.slice(0,4).join(" ")
+// dStart == dayStart
+// #=> true
+
+// now need also to have color parsing function here
+
+//start with redux state entries to dashboard and pass down as prop to calendar
