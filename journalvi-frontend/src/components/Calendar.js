@@ -72,7 +72,8 @@ class Calendar extends React.Component {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
-        // debugger
+        
+        // console.log(isSameMonth(day, this.state.currentMonth))
         // this.compareDates(day)
         days.push(
           <div
@@ -130,11 +131,14 @@ class Calendar extends React.Component {
     //create object of key value pairs where key is formatted date and value is entry obj
     //if found in keys return color for agg score. else return default color
     // if day [month]!== current month return #fff else go through whole logic of matching stuff up
+    if (!isSameMonth(day, this.state.currentMonth)) {
+        return '#fff'
+    } else {
+    
     let parsedDayDate = this.parseCalDate(day)
-
-
     let entryObj = {}
     let entries = this.props.entries
+    
     entries.forEach(entry => {
         let formattedEntryDate = this.parseEntryDate(entry.date)
         return entryObj[formattedEntryDate] = entry
@@ -147,6 +151,7 @@ class Calendar extends React.Component {
     }
 
   }
+}
 
   parseEntryDate = (date) => {
     let d = new Date(date)
