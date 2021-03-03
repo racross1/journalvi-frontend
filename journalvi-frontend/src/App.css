@@ -342,9 +342,16 @@ main {
 .calendar {
   display: block;
   position: relative;
-  width: 100%;
+
+  padding-top: 10px;
+  padding-right: 90px;
+  padding-bottom: 10px;
+  padding-left: 125px;
+  margin: 60px;
+
+  width: 85%;
   background: var(--neutral-color);
-  border: 1px solid var(--border-color);
+  /* border: 1px solid var(--border-color); */
 }
 
 .calendar .header {
@@ -353,6 +360,7 @@ main {
   font-size: 115%;
   padding: 1.5em 0;
   border-bottom: 1px solid var(--border-color);
+  background-color: rgba(75, 82, 91, 0.75);
 }
 
 .calendar .header .icon {
@@ -408,13 +416,13 @@ main {
   border-bottom: 1px solid var(--border-color);
 }
 
-.calendar .body .row:last-child {
+/* .calendar .body .row:last-child {
   border-bottom: none;
 }
 
 .calendar .body .cell:last-child {
   border-right: none;
-}
+} */
 
 .calendar .body .cell .number {
   position: absolute;
@@ -452,4 +460,26 @@ main {
   flex-grow: 0;
   flex-basis: calc(100%/7);
   width: calc(100%/7);
+  border-left: 1px solid var(--border-color);
 }
+
+/* line 462 was my addition to account for commenting out overall border */
+/* line reading the following in case line #s change with additions
+border-left: 1px solid var(--border-color); */
+
+/* .right-pane{
+  padding-top: 10px;
+  padding-right: 90px;
+  padding-bottom: 10px;
+  padding-left: 90px;
+  border: solid gray;
+  margin: 60px;
+}
+
+#dynamic-pane{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 25px;
+    left: 250px; 
+} */

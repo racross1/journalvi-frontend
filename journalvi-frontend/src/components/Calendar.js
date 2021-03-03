@@ -2,6 +2,7 @@ import React from "react";
 import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, parse} from "date-fns";
 // import startOfWeek from 'date-fns/start_of_week'
 // import addDays from 'date-fns/addDays'
+import {Link} from 'react-router-dom'
 
 // const color = 'rgba(40,167,69)' 
 
@@ -75,17 +76,18 @@ class Calendar extends React.Component {
         
         // console.log(isSameMonth(day, this.state.currentMonth))
         // this.compareDates(day)
+        // if (this.matchDatesForClick(day)) 
         days.push(
           <div
-            
             className={`col cell ${
               !isSameMonth(day, monthStart)
                 ? "disabled"
                 : isSameDay(day, selectedDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(parse(cloneDay))}
-            style={{background: this.compareDates(day)}}
+            onClick={() => this.handleDateClick(cloneDay)}
+            // onClick={() => this.onDateClick(parse(cloneDay))}
+            style={{background: this.matchColor(day)}}
             >
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
@@ -100,9 +102,21 @@ class Calendar extends React.Component {
       );
       days = [];
     }
-    // debugger
+
     return <div className="body">{rows}</div>;
   }
+
+
+  handleDateClick = day => {
+    console.log(this.matchDatesForClick(day))
+    if (this.matchDatesForClick(day)) {
+        window.location.href = `http://localhost:3001/entries/${this.matchDatesForClick(day)}`
+    }
+    
+    //right now returning id of correct entry
+    // window.location.href="http://url.com";
+  }
+
 
   onDateClick = day => {
     this.setState({
@@ -122,20 +136,9 @@ class Calendar extends React.Component {
     });
   };
 
-//   componentDidMount() {
-//       this.compareDates()
-//   }
+
   compareDates = (day) => {
-    // create object in separate function so don't have to create every time
-    //key formatted date, value entry, get array of keys, if found, d
-    //create object of key value pairs where key is formatted date and value is entry obj
-    //if found in keys return color for agg score. else return default color
-    // if day [month]!== current month return #fff else go through whole logic of matching stuff up
-    if (!isSameMonth(day, this.state.currentMonth)) {
-        return '#fff'
-    } else {
-    
-    let parsedDayDate = this.parseCalDate(day)
+    // let parsedDayDate = this.parseCalDate(day)
     let entryObj = {}
     let entries = this.props.entries
     
@@ -143,7 +146,38 @@ class Calendar extends React.Component {
         let formattedEntryDate = this.parseEntryDate(entry.date)
         return entryObj[formattedEntryDate] = entry
     }) 
-    // console.log(Object.keys(entryObj).includes(parsedDayDate))
+
+    return entryObj
+  }
+
+  matchDatesForClick = (day) => {
+    let parsedDayDate = this.parseCalDate(day)
+
+    let entryObj = this.compareDates(day)
+
+    if (Object.keys(entryObj).includes(parsedDayDate)){
+        return entryObj[parsedDayDate].id    
+    } else {
+        return false
+    }
+  }
+
+  matchColor = (day) => {
+    if (!isSameMonth(day, this.state.currentMonth)) {
+        return '#fff'
+    } else {
+    
+    let parsedDayDate = this.parseCalDate(day)
+    // let entryObj = {}
+    // let entries = this.props.entries
+    
+    // entries.forEach(entry => {
+    //     let formattedEntryDate = this.parseEntryDate(entry.date)
+    //     return entryObj[formattedEntryDate] = entry
+    // }) 
+
+    let entryObj = this.compareDates(day)
+
     if (Object.keys(entryObj).includes(parsedDayDate)){
         return this.dayColor(entryObj[parsedDayDate])
     } else {
