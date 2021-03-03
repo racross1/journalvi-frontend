@@ -6,6 +6,9 @@ import Welcome from '../components/Welcome.js'
 import ShowEntry from '../components/ShowEntry.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Route, Switch} from 'react-router-dom'
+import Dashboard from './Dashboard.js'
+
+
 
 
 
@@ -26,6 +29,7 @@ export default class DynamicPane extends React.Component{
                 return <ShowEntry entry={entry}/>
             
             }}/>
+            <Route exact path="/dashboard" component={Dashboard}/>
             </Switch>
   
         </div>
