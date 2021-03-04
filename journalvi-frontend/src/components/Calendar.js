@@ -150,25 +150,25 @@ class Calendar extends React.Component {
         let entry = this.matchDatesForClick(day)
         console.log(entry)
           return <div> 
-              <em><strong>Aggregate Entry Sentiment:</strong></em> 
-              <br></br><br></br>
-              {entry.agg_score_key}  |  {this.showAggScore(entry.agg_score)}
-              <br></br><br></br>
-              <em><strong>Sentiment Score by Prompt:</strong></em>
-              <br></br><br></br>
-             <strong>Morning:</strong>
-              <br></br>
-              &emsp;&emsp;{entry.scores[0].sentiment}  |  {this.showScore(entry.scores[0])}
-              <br></br><br></br>
+            <em><strong>Aggregate Entry Sentiment:</strong></em> 
+            <br></br><br></br>
+                {entry.agg_score_key}  |  {this.showAggScore(entry.agg_score)}
+            <br></br><br></br>
+            <em><strong>Sentiment Score by Prompt:</strong></em>
+            <br></br><br></br>
+            <strong>Morning:</strong>
+            <br></br>
+                &emsp;&emsp;{entry.scores[0].sentiment}  |  {this.showScore(entry.scores[0])}
+            <br></br><br></br>
             <strong>Afternoon:</strong>
-              <br></br>
-              &emsp;&emsp;{entry.scores[1].sentiment}  |  {this.showScore(entry.scores[1])}
-              <br></br><br></br>
-             <strong>Evening:</strong>
-              <br></br>
-              &emsp;&emsp;{entry.scores[2].sentiment}  |  {this.showScore(entry.scores[2])}
-              <br></br><br></br>
-              <em>Click to go to entry summary page</em>
+            <br></br>
+                &emsp;&emsp;{entry.scores[1].sentiment}  |  {this.showScore(entry.scores[1])}
+            <br></br><br></br>
+            <strong>Evening:</strong>
+            <br></br>
+                &emsp;&emsp;{entry.scores[2].sentiment}  |  {this.showScore(entry.scores[2])}
+            <br></br><br></br>
+            <em>Click to go to entry summary page</em>
               </div>
               
       } else {
