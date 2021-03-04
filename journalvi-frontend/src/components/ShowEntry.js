@@ -5,9 +5,9 @@ import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Tooltip from 'react-bootstrap/Tooltip'
+// import Tooltip from 'react-bootstrap/Tooltip'
 import Container from 'react-bootstrap/Container'
-import Overlay from 'react-bootstrap/Overlay'
+// import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 
 
@@ -142,7 +142,7 @@ class ShowEntry extends React.Component{
                         <Col className='header-summary-col'><span className='head-label'>Aggregate Entry Sentiment: </span><br></br>{this.state.entry.agg_score_key} <br></br>{this.showAggScore()}</Col>
                         <Col sm={2}> 
                        <OverlayTrigger  placement="bottom" overlay={
-                            <Popover id="tooltip-disabled">
+                            <Popover id="info-popover">
                                 <Popover.Title as="h3">What's this?</Popover.Title>
                                 <Popover.Content> 
                                     Each of your responses to the prompts below received a percentage score representing the AI's confidence level that the sentiment was Positive, Negative, Neutral and Mixed. 

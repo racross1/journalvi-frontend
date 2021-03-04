@@ -389,6 +389,8 @@ main {
   font-size: 70%;
   padding: .75em 0;
   border-bottom: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
 }
 
 .calendar .body .cell {

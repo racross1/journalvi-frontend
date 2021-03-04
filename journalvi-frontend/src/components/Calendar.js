@@ -1,8 +1,12 @@
 import React from "react";
-import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, parse} from "date-fns";
+import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay} from "date-fns";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Popover from 'react-bootstrap/Popover'
+
+//from the above, removed parse
 // import startOfWeek from 'date-fns/start_of_week'
 // import addDays from 'date-fns/addDays'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 
 // const color = 'rgba(40,167,69)' 
 
@@ -73,11 +77,16 @@ class Calendar extends React.Component {
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
-        
         // console.log(isSameMonth(day, this.state.currentMonth))
         // this.compareDates(day)
         // if (this.matchDatesForClick(day)) 
         days.push(
+            <OverlayTrigger  placement="bottom" overlay={
+                <Popover>
+                    <Popover.Content>
+                    {this.renderPopoverContent(day)} 
+                    </Popover.Content> 
+            </Popover>}> 
           <div
             className={`col cell ${
               !isSameMonth(day, monthStart)
@@ -92,6 +101,7 @@ class Calendar extends React.Component {
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
           </div>
+          </OverlayTrigger>
         );
         day = addDays(day, 1);
       }
@@ -108,9 +118,9 @@ class Calendar extends React.Component {
 
 
   handleDateClick = day => {
-    console.log(this.matchDatesForClick(day))
+    // console.log(this.matchDatesForClick(day))
     if (this.matchDatesForClick(day)) {
-        window.location.href = `http://localhost:3001/entries/${this.matchDatesForClick(day)}`
+        window.location.href = `http://localhost:3001/entries/${this.matchDatesForClick(day).id}`
     }
   }
 
@@ -134,6 +144,57 @@ class Calendar extends React.Component {
   };
 
 
+  renderPopoverContent(day){
+      
+    if (this.matchDatesForClick(day)) {
+        let entry = this.matchDatesForClick(day)
+        console.log(entry)
+          return <div> 
+              <em><strong>Aggregate Entry Sentiment:</strong></em> 
+              <br></br><br></br>
+              {entry.agg_score_key}  |  {this.showAggScore(entry.agg_score)}
+              <br></br><br></br>
+              <em><strong>Sentiment Score by Prompt:</strong></em>
+              <br></br><br></br>
+             <strong>Morning:</strong>
+              <br></br>
+              &emsp;&emsp;{entry.scores[0].sentiment}  |  {this.showScore(entry.scores[0])}
+              <br></br><br></br>
+            <strong>Afternoon:</strong>
+              <br></br>
+              &emsp;&emsp;{entry.scores[1].sentiment}  |  {this.showScore(entry.scores[1])}
+              <br></br><br></br>
+             <strong>Evening:</strong>
+              <br></br>
+              &emsp;&emsp;{entry.scores[2].sentiment}  |  {this.showScore(entry.scores[2])}
+              <br></br><br></br>
+              <em>Click to go to entry summary page</em>
+              </div>
+              
+      } else {
+          return 'No entry for this date!'
+      }
+    
+  }
+
+  showScore = (score) => {
+    switch(score.sentiment) {
+        case 'POSITIVE':
+            return `${(score.pos_score * 100).toFixed(1)}%` 
+        case 'NEGATIVE':
+            return `${(score.neg_score * 100).toFixed(1)}%`
+        case 'NEUTRAL':
+            return `${(score.neut_score * 100).toFixed(1)}%`
+        case 'MIXED':
+            return `${(score.mixed_score * 100).toFixed(1)}%`
+    
+    }
+}
+
+showAggScore = (agg_score) => {
+   return `${(agg_score * 100).toFixed(1)}%` 
+}
+
   compareDates = (day) => {
     // let parsedDayDate = this.parseCalDate(day)
     let entryObj = {}
@@ -153,7 +214,7 @@ class Calendar extends React.Component {
     let entryObj = this.compareDates(day)
 
     if (Object.keys(entryObj).includes(parsedDayDate)){
-        return entryObj[parsedDayDate].id    
+        return entryObj[parsedDayDate]    
     } else {
         return false
     }
@@ -165,14 +226,7 @@ class Calendar extends React.Component {
     } else {
     
     let parsedDayDate = this.parseCalDate(day)
-    // let entryObj = {}
-    // let entries = this.props.entries
-    
-    // entries.forEach(entry => {
-    //     let formattedEntryDate = this.parseEntryDate(entry.date)
-    //     return entryObj[formattedEntryDate] = entry
-    // }) 
-
+   
     let entryObj = this.compareDates(day)
 
     if (Object.keys(entryObj).includes(parsedDayDate)){
