@@ -112,9 +112,6 @@ class Calendar extends React.Component {
     if (this.matchDatesForClick(day)) {
         window.location.href = `http://localhost:3001/entries/${this.matchDatesForClick(day)}`
     }
-    
-    //right now returning id of correct entry
-    // window.location.href="http://url.com";
   }
 
 

@@ -141,9 +141,19 @@ class ShowEntry extends React.Component{
                         <Col sm={3} className='date-col'> {this.parseDate(this.state.entry.date)}</Col>
                         <Col className='header-summary-col'><span className='head-label'>Aggregate Entry Sentiment: </span><br></br>{this.state.entry.agg_score_key} <br></br>{this.showAggScore()}</Col>
                         <Col sm={2}> 
-                       <OverlayTrigger  placement="bottom" overlay={<Tooltip id="tooltip-disabled">What's this? 
-                        Each of your responses to the prompts below receives a % score for the AI's confidence level that the sentiment is Positive, Negative, Neutral or Mixed. We take the average of each sentiment across each prompt in your entry and show you the HIGHEST AVERAGE (e.g. if across each of your responses, Positive has the highest average score, we give you the average positive sentiment score)
-                        </Tooltip>}> 
+                       <OverlayTrigger  placement="bottom" overlay={
+                            <Popover id="tooltip-disabled">
+                                <Popover.Title as="h3">What's this?</Popover.Title>
+                                <Popover.Content> 
+                                    Each of your responses to the prompts below received a percentage score representing the AI's confidence level that the sentiment was Positive, Negative, Neutral and Mixed. 
+                                    <br></br>
+                                    <br></br>
+                                    We calculated the average score of each sentiment across each prompt in your entry. This color and number represent the <strong>highest average</strong> sentiment score (e.g. if across each of your responses, Positive has the highest average score, we give you the average positive sentiment score).
+                                    <br></br>
+                                    <br></br>
+                                    This is meant to give you a sense of the predominant overall sentiment for your entry.
+                                </Popover.Content>
+                        </Popover>}> 
                         
                             <Card 
                             className="day-card"
