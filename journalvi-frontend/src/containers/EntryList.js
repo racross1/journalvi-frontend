@@ -8,7 +8,17 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 
+// --orange-color: rgb(226, 125, 96);
+// --light-blue-color: rgb(133,220,186);
+// --yellow-color: rgb(232, 168, 124);
+// --purple-color: rgb(195, 141, 158);
+// --teal-color: rgb( 65,179,163);
 
+//colors
+let posColor = '40,167,69'
+let negColor = '220,53,69'
+let neutColor = '255,193,7'
+let mixedColor = '0,123,255'
 
 export default class EntryList extends React.Component{
   state = {
@@ -37,13 +47,13 @@ export default class EntryList extends React.Component{
        
         switch(entryScore) {
             case 'POSITIVE':
-                return `rgba(40,167,69, ${scoreVal})` 
+                return `rgba(${posColor}, ${scoreVal})` 
             case 'NEGATIVE':
-                return `rgba(220,53,69, ${scoreVal})`
+                return `rgba(${negColor}, ${scoreVal})` 
             case 'NEUTRAL':
-                return `rgba(255,193,7, ${scoreVal})`
+                return `rgba(${neutColor}, ${scoreVal})` 
             case 'MIXED':
-                return `rgba(0,123,255, ${scoreVal})`    
+                return `rgba(${mixedColor}, ${scoreVal})`    
         }
     }
 

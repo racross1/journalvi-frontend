@@ -1,13 +1,20 @@
+
+
 .App {
   text-align: center;
 }
 
+/* VARIABLES */
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+  --orange-color: rgb(226, 125, 96);
+  --light-blue-color: rgb(133,220,186);
+  --yellow-color: rgb(232, 168, 124);
+  --purple-color: rgb(195, 141, 158);
+  --teal-color: rgb( 65,179,163);
 }
+
+
 
 .App-header {
   background-color: #282c34;

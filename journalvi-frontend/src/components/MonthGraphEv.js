@@ -1,7 +1,17 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
 
+// --orange-color: rgb(226, 125, 96);
+// --light-blue-color: rgb(133,220,186);
+// --yellow-color: rgb(232, 168, 124);
+// --purple-color: rgb(195, 141, 158);
+// --teal-color: rgb( 65,179,163);
 
+//colors
+let posColor = '40,167,69'
+let negColor = '220,53,69'
+let neutColor = '255,193,7'
+let mixedColor = '0,123,255'
 
 const MonthGraphEv = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revision}) => {
     
@@ -17,7 +27,7 @@ const MonthGraphEv = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revisi
                     mode: 'lines+markers',
                     name: 'Positive',
                     line: {
-                        color: 'rgb(40,167,69)',
+                        color: `rgb(${posColor})`,
                         width: 3
                     }
                 },
@@ -28,7 +38,7 @@ const MonthGraphEv = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revisi
                     mode: 'lines+markers',
                     name: 'Negative',
                     line: {
-                        color: 'rgb(220,53,69)',
+                        color: `rgb(${negColor})`,
                         width: 3
                     }
                 },
@@ -39,7 +49,7 @@ const MonthGraphEv = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revisi
                     mode: 'lines+markers',
                     name: 'Neutral',
                     line: {
-                        color: 'rgb(255,193,7)',
+                        color: `rgb(${neutColor})`,
                         width: 3
                     }
                 },
@@ -50,7 +60,7 @@ const MonthGraphEv = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revisi
                     mode: 'lines+markers',
                     name: 'Mixed',
                     line: {
-                        color: 'rgb(0,123,255)',
+                        color: `rgb(${mixedColor})`,
                         width: 3
                     }
                 }           

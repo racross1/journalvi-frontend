@@ -10,6 +10,18 @@ import Container from 'react-bootstrap/Container'
 // import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
 
+// --orange-color: rgb(226, 125, 96);
+// --light-blue-color: rgb(133,220,186);
+// --yellow-color: rgb(232, 168, 124);
+// --purple-color: rgb(195, 141, 158);
+// --teal-color: rgb( 65,179,163);
+
+//colors
+let posColor = '40,167,69'
+let negColor = '220,53,69'
+let neutColor = '255,193,7'
+let mixedColor = '0,123,255'
+            
 
 
 class ShowEntry extends React.Component{
@@ -49,13 +61,13 @@ class ShowEntry extends React.Component{
        
         switch(entryScore) {
             case 'POSITIVE':
-                return `rgba(40,167,69, ${scoreVal})` 
+                return `rgba(${posColor}, ${scoreVal})` 
             case 'NEGATIVE':
-                return `rgba(220,53,69, ${scoreVal})`
+                return `rgba(${negColor}, ${scoreVal})` 
             case 'NEUTRAL':
-                return `rgba(255,193,7, ${scoreVal})`
+                return `rgba(${neutColor}, ${scoreVal})` 
             case 'MIXED':
-                return `rgba(0,123,255, ${scoreVal})`
+                return `rgba(${mixedColor}, ${scoreVal})` 
           
                 
         }
@@ -65,13 +77,13 @@ class ShowEntry extends React.Component{
         // console.log(score)
         switch(score.sentiment) {
             case 'POSITIVE':
-                return `rgba(40,167,69, ${score.pos_score - 0.1})` 
+                return `rgba(${posColor}, ${score.pos_score - 0.1})` 
             case 'NEGATIVE':
-                return `rgba(220,53,69, ${score.neg_score - 0.1})`
+                return `rgba(${negColor}, ${score.neg_score - 0.1})`
             case 'NEUTRAL':
-                return `rgba(255,193,7, ${score.neut_score - 0.1})`
+                return `rgba(${neutColor}, ${score.neut_score - 0.1})`
             case 'MIXED':
-                return `rgba(0,123,255, ${score.mixed_score - 0.1})`
+                return `rgba(${mixedColor}, ${score.mixed_score - 0.1})`
         
         }
     }
@@ -176,14 +188,5 @@ class ShowEntry extends React.Component{
     }
 }
 
-// const mapStateToProps = (state) => {
-//     console.log(state)
-//     return {
-//         entries: state.entryReducer.entries,
-//         requesting: state.entryReducer.requesting
-//     }
-// }
 
-
-// export default connect(mapStateToProps)(ShowEntry)
 export default ShowEntry
