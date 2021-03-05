@@ -27,14 +27,3 @@ export function fetchEntries(){
       };
     } 
 
-
-//     let token = sessionStorage.getItem('token')
-//     fetch('http://127.0.0.1:3000/entries', {
-//         method: "GET",
-//         headers: {
-//           Authorization: `bearer ${token}`,
-//         }
-//     })
-//     .then(resp => resp.json())
-//     .then(userEntries => this.props.populateEntries(userEntries))
-// }

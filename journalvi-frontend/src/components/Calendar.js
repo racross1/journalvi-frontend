@@ -2,6 +2,8 @@ import React from "react";
 import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay} from "date-fns";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
+// import { connect } from 'react-redux';
+// import { changeMonth } from '../actions/times.js';
 
 //from the above, removed parse
 // import startOfWeek from 'date-fns/start_of_week'
@@ -118,7 +120,6 @@ class Calendar extends React.Component {
 
 
   handleDateClick = day => {
-    // console.log(this.matchDatesForClick(day))
     if (this.matchDatesForClick(day)) {
         window.location.href = `http://localhost:3001/entries/${this.matchDatesForClick(day).id}`
     }
@@ -132,23 +133,33 @@ class Calendar extends React.Component {
   };
 
   nextMonth = () => {
+    let nextM = addMonths(this.state.currentMonth, 1)
+    this.props.setMonth(nextM)
     this.setState({
       currentMonth: addMonths(this.state.currentMonth, 1)
     });
+
   };
 
   prevMonth = () => {
+    let prevM = subMonths(this.state.currentMonth, 1)
+    this.props.setMonth(prevM)
     this.setState({
       currentMonth: subMonths(this.state.currentMonth, 1)
     });
+   
   };
 
+
+//   componentWillUnmount(){
+//       this.props.changeMonth(new Date())
+//   }
 
   renderPopoverContent(day){
       
     if (this.matchDatesForClick(day)) {
         let entry = this.matchDatesForClick(day)
-        console.log(entry)
+        // console.log(entry)
           return <div> 
             <em><strong>Aggregate Entry Sentiment:</strong></em> 
             <br></br><br></br>
@@ -282,8 +293,8 @@ showAggScore = (agg_score) => {
   }
 }
 
-export default Calendar;
-
+// export default connect(null, {changeMonth})(Calendar);
+export default Calendar
 
 // code to compare entry dates with day as it appears in calendar
 // let d = new Date(date)
