@@ -8,10 +8,15 @@ import Plot from 'react-plotly.js';
 // --teal-color: rgb( 65,179,163);
 
 //colors
-let posColor = '40,167,69'
-let negColor = '220,53,69'
-let neutColor = '255,193,7'
-let mixedColor = '0,123,255'
+// let posColor = '40,167,69'
+// let negColor = '220,53,69'
+// let neutColor = '255,193,7'
+// let mixedColor = '0,123,255'
+
+let posColor = '65, 179, 163'
+let negColor = '226, 125, 96'
+let neutColor = '232, 168, 12'
+let mixedColor = '195, 141, 158'
 
 const MonthGraphAft = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revision}) => {
     

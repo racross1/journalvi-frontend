@@ -1,44 +1,61 @@
 
+@import url(href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap")
 
 .App {
   text-align: center;
+  
 }
+html { 
+  background-color: rgba(65,179,163,0.25);
+  
+}
+
 
 /* VARIABLES */
 
 :root {
+  /* --navbar-color: #303C6C;
+  --navhover: #B4DFE5;
+  --header-color: #D2FDFF;
+  --button1-color: #F4976C; 
+  --button2-color: #FBE8A6;
+  --paper-background: white; */
+
+
+  --navbar-color: rgb(65,179,163);
+  --navhover: rgb(133,220,186);
+  --header-color: rgb(195, 141, 158);
+  --button1-color: rgb(226, 125, 96);;
+  --button2-color: rgb(65,179,163);
+  --paper-background: rgba(234,231,220);
+
   --orange-color: rgb(226, 125, 96);
   --light-blue-color: rgb(133,220,186);
   --yellow-color: rgb(232, 168, 124);
   --purple-color: rgb(195, 141, 158);
-  --teal-color: rgb( 65,179,163);
+  --teal-color: rgb(65,179,163);
+  --tan-background: rgba(234,231,220);
+/* Second Color Scheme */
+/* #FBE8A6
+#F4976C
+#303C6C
+#B4DFE5
+#D2FDFF */
 }
 
 
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
 
-/* Everything above here is from generated file */
+
 
 /* The side navigation menu */
 .sidebar {
   margin: 0;
+  text-align: center;
   padding-top: 75px;
   width: 250px;
-  background-color: #f1f1f1;
+  background-color: var(--navbar-color);
   position: fixed;
   height: 100%;
   overflow: auto;
@@ -47,7 +64,7 @@
 /* Sidebar links */
 .sidebar a {
   display: block;
-  color: black;
+  color: white;
   padding: 16px;
   text-decoration: none;
 }
@@ -61,7 +78,7 @@
 
 /* Links on mouse-over */
 .sidebar a:hover:not(.active) {
-  background-color: #555;
+  background-color: var(--navhover);
   color: white;
   text-decoration: none;
 }
@@ -92,14 +109,17 @@ div.content {
   }
 }
 
+/* Page Header */
 .header {
-  padding: 15px;
+  font-family: 'Amatic SC';
+  text-decoration: bold;
+  padding: 5px;
   text-align: center;
-  background: #1abc9c;
+  background: var(--header-color);
   color: white;
-  font-size: 30px;
+  font-size: 50px;
 }
-
+/* Right pane */
 .right-pane{
   padding-top: 10px;
   padding-right: 90px;
@@ -120,6 +140,7 @@ div.content {
 #entry-form{
   padding: 15px;
   text-align: left;
+ 
 }
 
 .header-row{
@@ -212,7 +233,12 @@ div.content {
 
 .entry-list{
   margin: 20px;
+  background-color: var(--paper-background);
 }
+
+/* .entrylist-table{
+  background-color: white;
+} */
 
 .login-box{
   padding-top: 20px;
@@ -223,6 +249,15 @@ div.content {
   margin: 150px;
 }
 
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: var(--button1-color) !important;
+  border: none !important;
+}
+
+.btn-secondary, .btn-secondaet:hover, .btn-secondary:active, .btn-secondary:visited {
+  background-color: var(--button2-color) !important;
+  border: none !important;
+}
 
 /* CALENDAR CSS */
 
@@ -262,6 +297,7 @@ div.content {
   --bg-color: #f9f9f9;
   --neutral-color: #fff;
 }
+
 
 
 /* GENERAL */
@@ -367,7 +403,9 @@ main {
   font-size: 115%;
   padding: 1.5em 0;
   border-bottom: 1px solid var(--border-color);
-  background-color: rgba(75, 82, 91, 0.75);
+  /* new */
+  background-color: white;
+  color: black;
 }
 
 .calendar .header .icon {
