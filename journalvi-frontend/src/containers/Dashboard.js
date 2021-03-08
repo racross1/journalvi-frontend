@@ -1,5 +1,6 @@
 import React from "react";
 import Calendar from '../components/Calendar.js'
+import WeekCal from '../components/WeekCal.js'
 import { connect } from 'react-redux';
 import PieChart from "../components/PieChart.js"
 import MonthGraph from "../components/MonthGraph.js"
@@ -260,6 +261,8 @@ render(){
         <div id='dashboard'>
             <Calendar entries={this.props.entries} setMonth={this.setMonth}/>
             {/* <PieChart entries={this.props.entries}/> */}
+            <WeekCal  entries={this.props.entries}/>
+
             <MonthGraph 
                 entries={this.props.entries} 
                 selectedEntries={this.state.selectedEntries} 
