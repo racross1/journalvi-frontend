@@ -7,6 +7,8 @@ import MonthGraph from "../components/MonthGraph.js"
 import MonthGraphMorn from "../components/MonthGraphMorn.js"
 import MonthGraphAft from "../components/MonthGraphAft.js"
 import MonthGraphEv from "../components/MonthGraphEv.js"
+import Button from 'react-bootstrap/Button'
+
 
 import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay} from "date-fns";
 
@@ -42,6 +44,7 @@ class Dashboard extends React.Component {
         
 
     this.state = {
+        display: 'month',
         currentMonth: new Date(),
         selectedEntries: selectedEntries,
         revision: 0,
@@ -254,15 +257,28 @@ parseEntryDate = (date) => {
     return addDays(d, 1)
 
 }
+
+handleDisplayToggle = (e) => {
+    this.setState({
+        display: e.target.name
+    })
+
+}
     
 render(){
     
     return(
         <div id='dashboard'>
-            <Calendar entries={this.props.entries} setMonth={this.setMonth}/>
+            <br></br>
+            <Button name='month' onClick={this.handleDisplayToggle}>Month View</Button>
+            <Button name='week' onClick={this.handleDisplayToggle}>Week View</Button>
             {/* <PieChart entries={this.props.entries}/> */}
-            <WeekCal  entries={this.props.entries}/>
+           {this.state.display == 'month' ? <div className='month-display'>
+           
+           <h2 className='dashboard-header'>Your Month at a Glance</h2>
+           <Calendar entries={this.props.entries} setMonth={this.setMonth}/>
 
+           <h2 className='dashboard-header'>Aggregate Sentiment Trend</h2>
             <MonthGraph 
                 entries={this.props.entries} 
                 selectedEntries={this.state.selectedEntries} 
@@ -276,7 +292,7 @@ render(){
                 yMixed={this.state.yMixed}
                
             />
-
+        <h2 className='dashboard-header'>Sentiment Trend by Time of Day</h2>
             <MonthGraphMorn 
                 entries={this.props.entries} 
                 selectedEntries={this.state.selectedEntries} 
@@ -318,6 +334,10 @@ render(){
                 yMixed={this.state.yMixedE}
                 
             />
+            </div> : <div className='week-display'>
+            <h2 className='dashboard-header'>Your Week at a Glance</h2>
+            <WeekCal  entries={this.props.entries}/>
+            </div>}
         </div>
         )
     }

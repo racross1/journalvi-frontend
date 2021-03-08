@@ -26,8 +26,8 @@ html {
 
   --navbar-color: rgb(65,179,163);
   --navhover: rgb(133,220,186);
-  --header-color: rgb(195, 141, 158);
-  --button1-color: rgb(226, 125, 96);;
+  --header-color: #6b7a8f;
+  --button1-color:#6b7a8f;
   --button2-color: rgb(65,179,163);
   --paper-background: white;
 
@@ -57,12 +57,13 @@ rgba(234,231,220); */
 .sidebar {
   margin: 0;
   text-align: center;
-  padding-top: 75px;
+  padding-top: 90px;
   width: 250px;
   background-color: var(--navbar-color);
   position: fixed;
   height: 100%;
   overflow: auto;
+  font-weight: bold;
 }
 
 /* Sidebar links */
@@ -144,7 +145,14 @@ div.content {
 #entry-form{
   padding: 15px;
   text-align: left;
- 
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.entry-list{
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .header-row{
@@ -261,6 +269,19 @@ div.content {
 .btn-secondary, .btn-secondaet:hover, .btn-secondary:active, .btn-secondary:visited {
   background-color: var(--button2-color) !important;
   border: none !important;
+  
+}
+
+.dashboard-header{
+  font-family: 'Roboto';
+  background: var(--teal-color);
+  width: 90%;
+  margin-left: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
 }
 
 /* CALENDAR CSS */
