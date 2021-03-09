@@ -199,10 +199,11 @@ class WeekCal extends React.Component {
   };
 
   nextWeek = () => {
-      //set state to add weeks
-      this.setState({
-        currentWeek: addWeeks(this.state.currentWeek, 1)
-      });
+    let nextW = addWeeks(this.state.currentWeek, 1)
+    this.props.setWeek(nextW)
+    this.setState({
+    currentWeek: nextW
+    });
   }
 
   prevMonth = () => {
@@ -215,8 +216,10 @@ class WeekCal extends React.Component {
   };
 
   prevWeek = () => {
+    let prevW = subWeeks(this.state.currentWeek, 1)
+    this.props.setWeek(prevW)
     this.setState({
-        currentWeek: subWeeks(this.state.currentWeek, 1)
+        currentWeek: prevW
       });
   }
 

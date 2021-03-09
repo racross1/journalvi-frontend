@@ -10,12 +10,13 @@ import SentimentPieChart from "../components/SentimentPie.js"
 import SentimentPieChartMorn from "../components/SentimentPieMorn.js"
 import SentimentPieChartAft from "../components/SentimentPieAft.js"
 import SentimentPieChartEv from "../components/SentimentPieEv.js"
+import SentimentPieChartWeek from "../components/SentimentPieWeek.js"
 
 
 import Button from 'react-bootstrap/Button'
 
 
-import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay} from "date-fns";
+import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, isSameWeek} from "date-fns";
 
 
 class Dashboard extends React.Component {
@@ -47,7 +48,10 @@ class Dashboard extends React.Component {
         let yNeutAxisE =  Object.values(this.createXYAxisObj(selectedEntries, "NEUTRAL", 'evening'))
         let yMixedAxisE = Object.values(this.createXYAxisObj(selectedEntries, "MIXED", 'evening'))
         
-        
+        let dateFormatWeeks = "MMM d yyyy"
+        let initWeek = new Date()
+        let weekSelectedEntries = this.selectWeekEntries(initWeek)
+        let weekDisplay = format(startOfWeek(initWeek), dateFormatWeeks)
 
     this.state = {
         display: 'month',
@@ -76,8 +80,36 @@ class Dashboard extends React.Component {
         yNegE: yNegAxisE,
         yNeutE: yNeutAxisE,
         yMixedE: yMixedAxisE,
+        
+        currentWeek: initWeek,
+        weekSelectedEntries: weekSelectedEntries,
+        currentWeekDisplay: weekDisplay
 
     }}
+
+    setWeek = (week) => {
+        let weekSelectedEntries = this.selectWeekEntries(week)
+        let dateFormatWeeks = "MMM d yyyy"
+        let weekDisplay = format(startOfWeek(week), dateFormatWeeks)
+
+        this.setState({
+            currentWeek: week,
+            weekSelectedEntries: weekSelectedEntries,
+            currentWeekDisplay: weekDisplay
+        })
+    }
+
+    selectWeekEntries = (week) => {
+        // const weekStart = startOfWeek(week);
+        // const weekEnd = endOfWeek(week);
+        // const startDate = startOfWeek(week);
+        // const endDate = endOfWeek(week);
+
+        return this.props.entries.filter(entry => isSameWeek(this.parseEntryDate(entry.date), week))
+
+       
+
+    }
 
     setMonth = (month) => {
         let selectedEntries = this.props.entries.filter(entry => isSameMonth(this.parseEntryDate(entry.date), month))
@@ -363,8 +395,10 @@ render(){
                 
             />
             </div> : <div className='week-display'>
+            
+            <WeekCal  entries={this.props.entries} setWeek={this.setWeek}/>
             <h2 className='dashboard-header'>Your Week at a Glance</h2>
-            <WeekCal  entries={this.props.entries}/>
+            <SentimentPieChartWeek selectedEntries={this.state.weekSelectedEntries} weekDisplay={this.state.currentWeekDisplay}/>
             </div>}
         </div>
         )
