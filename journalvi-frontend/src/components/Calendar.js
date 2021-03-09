@@ -2,20 +2,6 @@ import React from "react";
 import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay} from "date-fns";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
-// import { connect } from 'react-redux';
-// import { changeMonth } from '../actions/times.js';
-
-// --orange-color: rgb(226, 125, 96);
-// --light-blue-color: rgb(133,220,186);
-// --yellow-color: rgb(232, 168, 124);
-// --purple-color: rgb(195, 141, 158);
-// --teal-color: rgb( 65,179,163);
-
-//colors
-// let posColor = '40,167,69'
-// let negColor = '220,53,69'
-// let neutColor = '255,193,7'
-// let mixedColor = '0,123,255'
 
 let posColor = '65, 179, 163'
 let negColor = '226, 125, 96'
@@ -51,19 +37,17 @@ class Calendar extends React.Component {
   renderDays() {
     const dateFormat = "EEEE";
     const days = [];
-    // debugger
+  
     let startDate = startOfWeek(this.state.currentMonth);
     
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-center" key={i}>
           {format(addDays(startDate, i), dateFormat)}
-        
-        
         </div>
       );
     }
-    // debugger
+    
     return <div className="days row">{days}</div>;
   }
 
@@ -74,24 +58,19 @@ class Calendar extends React.Component {
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
 
-     
-
     const dateFormat = "d";
     const rows = [];
     
     let days = [];
     let day = startDate;
     let formattedDate = "";
-
     
     while (day <= endDate) {
         
       for (let i = 0; i < 7; i++) {
         formattedDate = format(day, dateFormat);
         const cloneDay = day;
-        // console.log(isSameMonth(day, this.state.currentMonth))
-        // this.compareDates(day)
-        // if (this.matchDatesForClick(day)) 
+       
         days.push(
             <OverlayTrigger  placement="bottom" overlay={
                 <Popover>
@@ -107,7 +86,6 @@ class Calendar extends React.Component {
             }`}
             key={day}
             onClick={() => this.handleDateClick(cloneDay)}
-            // onClick={() => this.onDateClick(parse(cloneDay))}
             style={{background: this.matchColor(day)}}
             >
             <span className="number">{formattedDate}</span>
@@ -128,19 +106,11 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
-
   handleDateClick = day => {
     if (this.matchDatesForClick(day)) {
         window.location.href = `http://localhost:3001/entries/${this.matchDatesForClick(day).id}`
     }
   }
-
-
-  onDateClick = day => {
-    this.setState({
-      selectedDate: day
-    });
-  };
 
   nextMonth = () => {
     let nextM = addMonths(this.state.currentMonth, 1)
@@ -161,15 +131,9 @@ class Calendar extends React.Component {
   };
 
 
-//   componentWillUnmount(){
-//       this.props.changeMonth(new Date())
-//   }
-
   renderPopoverContent(day){
-      
     if (this.matchDatesForClick(day)) {
         let entry = this.matchDatesForClick(day)
-        // console.log(entry)
           return <div> 
             <em><strong>Aggregate Entry Sentiment:</strong></em> 
             <br></br><br></br>
@@ -208,16 +172,16 @@ class Calendar extends React.Component {
             return `${(score.neut_score * 100).toFixed(1)}%`
         case 'MIXED':
             return `${(score.mixed_score * 100).toFixed(1)}%`
-    
+        default:
+          return ''
     }
-}
+  }
 
-showAggScore = (agg_score) => {
-   return `${(agg_score * 100).toFixed(1)}%` 
-}
+  showAggScore = (agg_score) => {
+    return `${(agg_score * 100).toFixed(1)}%` 
+  }
 
-  compareDates = (day) => {
-    // let parsedDayDate = this.parseCalDate(day)
+  compareDates = () => {
     let entryObj = {}
     let entries = this.props.entries
     
@@ -232,7 +196,7 @@ showAggScore = (agg_score) => {
   matchDatesForClick = (day) => {
     let parsedDayDate = this.parseCalDate(day)
 
-    let entryObj = this.compareDates(day)
+    let entryObj = this.compareDates()
 
     if (Object.keys(entryObj).includes(parsedDayDate)){
         return entryObj[parsedDayDate]    
@@ -248,7 +212,7 @@ showAggScore = (agg_score) => {
     
     let parsedDayDate = this.parseCalDate(day)
    
-    let entryObj = this.compareDates(day)
+    let entryObj = this.compareDates()
 
     if (Object.keys(entryObj).includes(parsedDayDate)){
         return this.dayColor(entryObj[parsedDayDate])
@@ -264,7 +228,6 @@ showAggScore = (agg_score) => {
     let dPlusOne = new Date(d.setDate(d.getDate() + 1))
     let dArr = String(dPlusOne).split(" ")
     return dArr.slice(0,4).join(" ")
-
   }
 
   parseCalDate = (day) => {
@@ -273,7 +236,6 @@ showAggScore = (agg_score) => {
   }
 
   dayColor = (entry) => {
-    // console.log(this.state.entry.prompts[0].prompt)
     let entryScore = entry.agg_score_key
     let scoreVal = entry.agg_score - 0.1
    
@@ -292,7 +254,6 @@ showAggScore = (agg_score) => {
 }
 
   render() {
-    // console.log(this.props.entries)
     return (
       <div className="calendar">
         {this.renderHeader()}
@@ -303,20 +264,4 @@ showAggScore = (agg_score) => {
   }
 }
 
-// export default connect(null, {changeMonth})(Calendar);
 export default Calendar
-
-// code to compare entry dates with day as it appears in calendar
-// let d = new Date(date)
-// let dPlusOne = new Date(d.setDate(d.getDate() + 1))
-// let dArr = String(dPlusOne).split(" ")
-
-// dayArr = String(day).split(" ")
-// var dStart = dArr.slice(0,4).join(" ")
-// var dayStart = dayArr.slice(0,4).join(" ")
-// dStart == dayStart
-// #=> true
-
-// now need also to have color parsing function here
-
-//start with redux state entries to dashboard and pass down as prop to calendar
