@@ -284,6 +284,37 @@ div.content {
   border-radius: 10px;
 }
 
+.dash-summary-pane{
+  width: 500px;
+  background: white;
+  text-align: left;
+  margin-left: 40px;
+}
+
+.month-summary-content{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.dash-label{
+  font-weight: bold;
+  font-style: italic;
+  color: #6B7A8F;
+  font-size: 110%;
+}
+
+.dash-content{
+  margin-left: 75px
+
+}
+
+.dash-content-last{
+  margin-left: 200px
+}
+
+.dash-row{
+  border-bottom: 1px solid gray;
+}
 /* CALENDAR CSS */
 
 

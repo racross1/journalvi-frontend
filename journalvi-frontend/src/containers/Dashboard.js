@@ -11,8 +11,12 @@ import SentimentPieChartMorn from "../components/SentimentPieMorn.js"
 import SentimentPieChartAft from "../components/SentimentPieAft.js"
 import SentimentPieChartEv from "../components/SentimentPieEv.js"
 import SentimentPieChartWeek from "../components/SentimentPieWeek.js"
+import DashPaneMonth from "../components/DashPaneMonth.js"
+import DashPaneWeek from "../components/DashPaneWeek.js"
 
 
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 
@@ -321,9 +325,18 @@ render(){
            <Calendar entries={this.props.entries} setMonth={this.setMonth}/>
 
            <h2 className='dashboard-header'>Your Month at a Glance</h2>
-            <SentimentPieChart 
-            selectedEntries={this.state.selectedEntries}
-            currentMonthDisplay={this.state.currentMonthDisplay}/>
+           <Row>
+                <Col>
+                    <div className='dash-summary-pane'>{<DashPaneMonth 
+                        selectedEntries={this.state.selectedEntries}/>}
+                    </div>
+               </Col>
+               <Col>
+                    <SentimentPieChart 
+                    selectedEntries={this.state.selectedEntries}
+                    currentMonthDisplay={this.state.currentMonthDisplay}/>
+                </Col>
+            </Row>
 
             <h2 className='dashboard-header'>Aggregate Sentiment Trend</h2>
             
@@ -339,7 +352,7 @@ render(){
                 yNeut={this.state.yNeut}
                 yMixed={this.state.yMixed}
                
-            />
+            /><br></br>   <br></br>
         <h2 className='dashboard-header'>Sentiment Stats by Time of Day</h2>
             <SentimentPieChartMorn 
             selectedEntries={this.state.selectedEntries}
@@ -358,7 +371,7 @@ render(){
                 yMixed={this.state.yMixedM}
                 
             />
-
+            <br></br>   <br></br>
             <SentimentPieChartAft 
                 selectedEntries={this.state.selectedEntries}
                 currentMonthDisplay={this.state.currentMonthDisplay}/>
@@ -376,7 +389,7 @@ render(){
                 yMixed={this.state.yMixedA}
                 
             />
-
+            <br></br>   <br></br>
             <SentimentPieChartEv
                 selectedEntries={this.state.selectedEntries}
                 currentMonthDisplay={this.state.currentMonthDisplay}/>
@@ -398,7 +411,16 @@ render(){
             
             <WeekCal  entries={this.props.entries} setWeek={this.setWeek}/>
             <h2 className='dashboard-header'>Your Week at a Glance</h2>
-            <SentimentPieChartWeek selectedEntries={this.state.weekSelectedEntries} weekDisplay={this.state.currentWeekDisplay}/>
+            <Row>
+                <Col>
+                <div className='dash-summary-pane'>{<DashPaneWeek 
+                        selectedEntries={this.state.weekSelectedEntries}/>}
+                    </div>
+                </Col>
+                <Col>
+                    <SentimentPieChartWeek selectedEntries={this.state.weekSelectedEntries} weekDisplay={this.state.currentWeekDisplay}/>
+                </Col>
+            </Row>
             </div>}
         </div>
         )
