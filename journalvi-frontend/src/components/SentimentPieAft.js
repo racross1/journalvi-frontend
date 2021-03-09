@@ -6,14 +6,14 @@ let negColor = '226, 125, 96'
 let neutColor = '232, 168, 12'
 let mixedColor = '195, 141, 158'
 
-const SentimentPieChart = ({selectedEntries, currentMonthDisplay}) => {
+const SentimentPieChartAft = ({selectedEntries, currentMonthDisplay}) => {
  
     function getSentimmentCounts(entries) {
         let pieData = []
-        let positive = entries.filter(entry => entry.agg_score_key === 'POSITIVE').length
-        let negative = entries.filter(entry => entry.agg_score_key === 'NEGATIVE').length
-        let neutral = entries.filter(entry => entry.agg_score_key === 'NEUTRAL').length
-        let mixed = entries.filter(entry => entry.agg_score_key === 'MIXED').length
+        let positive = entries.filter(entry => entry.scores[1].sentiment === 'POSITIVE').length
+        let negative = entries.filter(entry => entry.scores[1].sentiment === 'NEGATIVE').length
+        let neutral = entries.filter(entry => entry.scores[1].sentiment === 'NEUTRAL').length
+        let mixed = entries.filter(entry => entry.scores[1].sentiment === 'MIXED').length
         
         pieData = [...pieData, positive, negative, neutral, mixed]
         
@@ -43,7 +43,7 @@ const SentimentPieChart = ({selectedEntries, currentMonthDisplay}) => {
                 height: 400,
                 width: 500,
                 
-                title: `${currentMonthDisplay} Days` 
+                title: `${currentMonthDisplay} Afternoons` 
               }}
 
         />
@@ -51,4 +51,4 @@ const SentimentPieChart = ({selectedEntries, currentMonthDisplay}) => {
     );
   
 }
-export default SentimentPieChart;
+export default SentimentPieChartAft;

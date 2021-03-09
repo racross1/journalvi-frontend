@@ -2,11 +2,16 @@ import React from "react";
 import Calendar from '../components/Calendar.js'
 import WeekCal from '../components/WeekCal.js'
 import { connect } from 'react-redux';
-import PieChart from "../components/PieChart.js"
 import MonthGraph from "../components/MonthGraph.js"
 import MonthGraphMorn from "../components/MonthGraphMorn.js"
 import MonthGraphAft from "../components/MonthGraphAft.js"
 import MonthGraphEv from "../components/MonthGraphEv.js"
+import SentimentPieChart from "../components/SentimentPie.js"
+import SentimentPieChartMorn from "../components/SentimentPieMorn.js"
+import SentimentPieChartAft from "../components/SentimentPieAft.js"
+import SentimentPieChartEv from "../components/SentimentPieEv.js"
+
+
 import Button from 'react-bootstrap/Button'
 
 
@@ -42,6 +47,7 @@ class Dashboard extends React.Component {
         let yNeutAxisE =  Object.values(this.createXYAxisObj(selectedEntries, "NEUTRAL", 'evening'))
         let yMixedAxisE = Object.values(this.createXYAxisObj(selectedEntries, "MIXED", 'evening'))
         
+        
 
     this.state = {
         display: 'month',
@@ -70,6 +76,7 @@ class Dashboard extends React.Component {
         yNegE: yNegAxisE,
         yNeutE: yNeutAxisE,
         yMixedE: yMixedAxisE,
+
     }}
 
     setMonth = (month) => {
@@ -124,6 +131,7 @@ class Dashboard extends React.Component {
             yNegE: yNegAxisE,
             yNeutE: yNeutAxisE,
             yMixedE: yMixedAxisE,
+
         })
     }
 
@@ -264,6 +272,8 @@ handleDisplayToggle = (e) => {
     })
 
 }
+
+
     
 render(){
     
@@ -272,13 +282,19 @@ render(){
             <br></br>
             <Button name='month' onClick={this.handleDisplayToggle}>Month View</Button>
             <Button name='week' onClick={this.handleDisplayToggle}>Week View</Button>
-            {/* <PieChart entries={this.props.entries}/> */}
+            
            {this.state.display == 'month' ? <div className='month-display'>
            
-           <h2 className='dashboard-header'>Your Month at a Glance</h2>
+           
            <Calendar entries={this.props.entries} setMonth={this.setMonth}/>
 
-           <h2 className='dashboard-header'>Aggregate Sentiment Trend</h2>
+           <h2 className='dashboard-header'>Your Month at a Glance</h2>
+            <SentimentPieChart 
+            selectedEntries={this.state.selectedEntries}
+            currentMonthDisplay={this.state.currentMonthDisplay}/>
+
+            <h2 className='dashboard-header'>Aggregate Sentiment Trend</h2>
+            
             <MonthGraph 
                 entries={this.props.entries} 
                 selectedEntries={this.state.selectedEntries} 
@@ -292,7 +308,11 @@ render(){
                 yMixed={this.state.yMixed}
                
             />
-        <h2 className='dashboard-header'>Sentiment Trend by Time of Day</h2>
+        <h2 className='dashboard-header'>Sentiment Stats by Time of Day</h2>
+            <SentimentPieChartMorn 
+            selectedEntries={this.state.selectedEntries}
+            currentMonthDisplay={this.state.currentMonthDisplay}/>
+            
             <MonthGraphMorn 
                 entries={this.props.entries} 
                 selectedEntries={this.state.selectedEntries} 
@@ -306,6 +326,10 @@ render(){
                 yMixed={this.state.yMixedM}
                 
             />
+
+            <SentimentPieChartAft 
+                selectedEntries={this.state.selectedEntries}
+                currentMonthDisplay={this.state.currentMonthDisplay}/>
 
             <MonthGraphAft
                 entries={this.props.entries} 
@@ -321,6 +345,10 @@ render(){
                 
             />
 
+            <SentimentPieChartEv
+                selectedEntries={this.state.selectedEntries}
+                currentMonthDisplay={this.state.currentMonthDisplay}/>
+            
             <MonthGraphEv
                 entries={this.props.entries} 
                 selectedEntries={this.state.selectedEntries} 
