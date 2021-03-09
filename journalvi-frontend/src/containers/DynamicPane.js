@@ -5,9 +5,9 @@ import CreateEntry from '../components/CreateEntry.js'
 import Welcome from '../components/Welcome.js'
 import ShowEntry from '../components/ShowEntry.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
 import Dashboard from './Dashboard.js'
-
+import About from '../components/About.js'
 
 
 
@@ -19,6 +19,10 @@ export default class DynamicPane extends React.Component{
         <div  id="dynamic-pane" className='right-page'>
             <PageHeader/>    
             <Switch>
+                <Route exact path='/'>
+                    <Redirect to='/about' />
+                </Route>
+                <Route exact path='/about' component={About}></Route>
                 <Route exact path="/welcome" component={Welcome}/>
                 <Route exact path="/entries/new" component={CreateEntry} />
                 <Route exact path="/entries" render={() => {

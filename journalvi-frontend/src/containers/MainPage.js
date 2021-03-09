@@ -14,15 +14,7 @@ class MainPage extends React.Component {
 
     getUserEntries = () => {
         this.props.fetchEntries()
-        // let token = sessionStorage.getItem('token')
-        // fetch('http://127.0.0.1:3000/entries', {
-        //     method: "GET",
-        //     headers: {
-        //       Authorization: `bearer ${token}`,
-        //     }
-        // })
-        // .then(resp => resp.json())
-        // .then(userEntries => this.props.populateEntries(userEntries))
+        
     }
     render(){
         // console.log(this.props.entryReducer.entries)
