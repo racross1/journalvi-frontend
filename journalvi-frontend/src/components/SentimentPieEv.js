@@ -8,7 +8,7 @@ let mixedColor = '195, 141, 158'
 
 const SentimentPieChartEv = ({selectedEntries, currentMonthDisplay}) => {
  
-    function getSentimmentCounts(entries) {
+    function getSentimentCounts(entries) {
         let pieData = []
         let positive = entries.filter(entry => entry.scores[2].sentiment === 'POSITIVE').length
         let negative = entries.filter(entry => entry.scores[2].sentiment === 'NEGATIVE').length
@@ -25,7 +25,7 @@ const SentimentPieChartEv = ({selectedEntries, currentMonthDisplay}) => {
         <Plot
           data={[
               {
-                  values: getSentimmentCounts(selectedEntries),
+                  values: getSentimentCounts(selectedEntries),
                   labels: ['Positive', 'Negative', 'Neutral', 'Mixed'],
                   
                   type: 'pie',

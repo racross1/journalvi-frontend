@@ -56,7 +56,7 @@ const DashPaneWeek = ({selectedEntries}) => {
  
     function maxInArr(arr) {
         let sorted = arr.sort((a, b) => a-b).reverse()
-  
+        
         return sorted[0]
     }
 
@@ -71,7 +71,7 @@ const DashPaneWeek = ({selectedEntries}) => {
         for (let timeOfDay in compareData) {
             sortable.push([timeOfDay, compareData[timeOfDay]]);
         }
-
+       
         let max = sortable.sort((a, b) => a[1] - b[1])[2][0]
         return max   
     }

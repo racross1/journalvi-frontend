@@ -24,10 +24,6 @@ function entryReducer(state = { entries: [], requesting: false }, action) {
                 entries: [...state.entries, action.entry]
             }
 
-        // case 'SELECTED_ENTRY':
-        //     index = state.findIndex(entry => entry.id === action.entryId)
-        //     entry = state[index]
-        //     return entry
 
         default: 
             return state
