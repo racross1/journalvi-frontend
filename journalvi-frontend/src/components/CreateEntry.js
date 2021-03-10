@@ -70,6 +70,7 @@ class CreateEntry extends React.Component{
 
     render(){
         return (
+        <div className='create-bg'>
         <div  className='right-pane'>
             {this.state.entryId ?  <Redirect to={`/entries/${this.state.entryId}`}/> :
             <Form id='entry-form' onSubmit={this.handleSubmit}>
@@ -111,6 +112,7 @@ class CreateEntry extends React.Component{
                 </Button>
             </Form>
             }
+        </div>
         </div>
             )
         }
