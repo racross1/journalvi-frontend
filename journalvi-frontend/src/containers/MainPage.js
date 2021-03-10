@@ -17,7 +17,6 @@ class MainPage extends React.Component {
         
     }
     render(){
-        // console.log(this.props.entryReducer.entries)
         return (
         <div className="main-page">
         <Navbar logout={this.props.logout}/>

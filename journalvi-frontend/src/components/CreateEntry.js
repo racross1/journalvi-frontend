@@ -54,8 +54,6 @@ class CreateEntry extends React.Component{
             this.props.addEntry(entry)
             this.setState({redirect: true})
             this.setState({entryId: entry.id})
-            // this.props.history.push(`/entries/${entry.id}`)
-            // return <Redirect to={`/entries/${entry.id}`}/>
         })
     }
 
@@ -119,7 +117,6 @@ class CreateEntry extends React.Component{
     }
 
 const mapStateToProps = (state) => {
-    // console.log(state.userReducer.userData)
     return {user: state.userReducer.userData}
 }
 

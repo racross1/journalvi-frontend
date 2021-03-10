@@ -1,26 +1,11 @@
 import React from 'react'
-// import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-// import Tooltip from 'react-bootstrap/Tooltip'
 import Container from 'react-bootstrap/Container'
-// import Overlay from 'react-bootstrap/Overlay'
 import Popover from 'react-bootstrap/Popover'
-
-// --orange-color: rgb(226, 125, 96);
-// --light-blue-color: rgb(133,220,186);
-// --yellow-color: rgb(232, 168, 124);
-// --purple-color: rgb(195, 141, 158);
-// --teal-color: rgb( 65,179,163);
-
-//colors
-// let posColor = '40,167,69'
-// let negColor = '220,53,69'
-// let neutColor = '255,193,7'
-// let mixedColor = '0,123,255'
 
 let posColor = '65, 179, 163'
 let negColor = '226, 125, 96'
@@ -50,7 +35,6 @@ class ShowEntry extends React.Component{
     }
     
     parseDate = (date) => {
-        //for some reason dates are coming back as 1 day late
         //add one day to each to get correct date
         let d = new Date(date)
         let dPlusOne = new Date(d.setDate(d.getDate() + 1))
@@ -60,7 +44,6 @@ class ShowEntry extends React.Component{
     }
 
     dayColor = () => {
-        // console.log(this.state.entry.prompts[0].prompt)
         let entryScore = this.state.entry.agg_score_key
         let scoreVal = this.state.entry.agg_score - 0.1
        
@@ -79,7 +62,6 @@ class ShowEntry extends React.Component{
     }
 
     promptColor = (score) => {
-        // console.log(score)
         switch(score.sentiment) {
             case 'POSITIVE':
                 return `rgba(${posColor}, ${score.pos_score - 0.1})` 
@@ -114,10 +96,8 @@ class ShowEntry extends React.Component{
 
 
     createCards = (p, idx) => {
-        // console.log(idx)
         let score = this.state.entry.scores[idx]
-        //add score show method
-        // console.log(score)
+        
         return (<div key={`${idx}`}>
             <Card className='summary-card'>
                 <Card.Header className='prompt-cell'><span className='head-label'>Prompt:</span> {p.prompt}</Card.Header>

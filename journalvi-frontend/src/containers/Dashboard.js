@@ -20,7 +20,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 
 
-import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, isSameWeek} from "date-fns";
+import {format, startOfWeek, addDays, isSameMonth, isSameWeek} from "date-fns";
 
 
 class Dashboard extends React.Component {
@@ -104,14 +104,9 @@ class Dashboard extends React.Component {
     }
 
     selectWeekEntries = (week) => {
-        // const weekStart = startOfWeek(week);
-        // const weekEnd = endOfWeek(week);
-        // const startDate = startOfWeek(week);
-        // const endDate = endOfWeek(week);
-
+        
         return this.props.entries.filter(entry => isSameWeek(this.parseEntryDate(entry.date), week))
 
-       
 
     }
 
@@ -303,12 +298,69 @@ parseEntryDate = (date) => {
 }
 
 handleDisplayToggle = (e) => {
+    let initMonth = new Date()
+        let selectedEntries = this.props.entries.filter(entry => isSameMonth(this.parseEntryDate(entry.date), initMonth))
+        let xAxis = Object.keys(this.createXYAxisObj(selectedEntries, "POSITIVE", 'entryAvg'))
+        let monthDisplay = format(initMonth,'MMMM')
+
+        let yPosAxis = Object.values(this.createXYAxisObj(selectedEntries, "POSITIVE", 'entryAvg'))
+        let yNegAxis = Object.values(this.createXYAxisObj(selectedEntries, "NEGATIVE", 'entryAvg'))
+        let yNeutAxis =  Object.values(this.createXYAxisObj(selectedEntries, "NEUTRAL", 'entryAvg'))
+        let yMixedAxis = Object.values(this.createXYAxisObj(selectedEntries, "MIXED", 'entryAvg'))
+
+        let yPosAxisM = Object.values(this.createXYAxisObj(selectedEntries, "POSITIVE", 'morning'))
+        let yNegAxisM = Object.values(this.createXYAxisObj(selectedEntries, "NEGATIVE", 'morning'))
+        let yNeutAxisM =  Object.values(this.createXYAxisObj(selectedEntries, "NEUTRAL", 'morning'))
+        let yMixedAxisM = Object.values(this.createXYAxisObj(selectedEntries, "MIXED", 'morning'))
+
+        let yPosAxisA = Object.values(this.createXYAxisObj(selectedEntries, "POSITIVE", 'afternoon'))
+        let yNegAxisA = Object.values(this.createXYAxisObj(selectedEntries, "NEGATIVE", 'afternoon'))
+        let yNeutAxisA =  Object.values(this.createXYAxisObj(selectedEntries, "NEUTRAL", 'afternoon'))
+        let yMixedAxisA = Object.values(this.createXYAxisObj(selectedEntries, "MIXED", 'afternoon'))
+
+        let yPosAxisE = Object.values(this.createXYAxisObj(selectedEntries, "POSITIVE", 'evening'))
+        let yNegAxisE = Object.values(this.createXYAxisObj(selectedEntries, "NEGATIVE", 'evening'))
+        let yNeutAxisE =  Object.values(this.createXYAxisObj(selectedEntries, "NEUTRAL", 'evening'))
+        let yMixedAxisE = Object.values(this.createXYAxisObj(selectedEntries, "MIXED", 'evening'))
+        
+        let dateFormatWeeks = "MMM d yyyy"
+        let initWeek = new Date()
+        let weekSelectedEntries = this.selectWeekEntries(initWeek)
+        let weekDisplay = format(startOfWeek(initWeek), dateFormatWeeks)
     this.setState({
-        display: e.target.name
+        display: e.target.name,
+        currentMonth: new Date(),
+        selectedEntries: selectedEntries,
+        revision: 0,
+        x: xAxis,
+        currentMonthDisplay: monthDisplay,
+
+        yPos: yPosAxis,
+        yNeg: yNegAxis,
+        yNeut: yNeutAxis,
+        yMixed: yMixedAxis,
+
+        yPosM: yPosAxisM,
+        yNegM: yNegAxisM,
+        yNeutM: yNeutAxisM,
+        yMixedM: yMixedAxisM,
+
+        yPosA: yPosAxisA,
+        yNegA: yNegAxisA,
+        yNeutA: yNeutAxisA,
+        yMixedA: yMixedAxisA,
+
+        yPosE: yPosAxisE,
+        yNegE: yNegAxisE,
+        yNeutE: yNeutAxisE,
+        yMixedE: yMixedAxisE,
+        
+        currentWeek: initWeek,
+        weekSelectedEntries: weekSelectedEntries,
+        currentWeekDisplay: weekDisplay
     })
 
 }
-
 
     
 render(){
@@ -319,7 +371,7 @@ render(){
             <Button name='month' onClick={this.handleDisplayToggle}>Month View</Button>
             <Button name='week' onClick={this.handleDisplayToggle}>Week View</Button>
             
-           {this.state.display == 'month' ? <div className='month-display'>
+           {this.state.display === 'month' ? <div className='month-display'>
            
            
            <Calendar entries={this.props.entries} setMonth={this.setMonth}/>

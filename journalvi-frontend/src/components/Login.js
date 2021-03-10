@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { setUser } from '../actions/users.js';
-// import { populateEntries } from '../actions/entries.js'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -71,21 +70,6 @@ class Login extends React.Component {
                 <Button type="submit">Log In</Button><br></br>
 
             </Form>
-            
-            
-            {/* <form onSubmit={(e) => this.handleLogin(e)}>
-                <h5>Please Sign In</h5>
-                <div className="form-group">
-                    <label>Username</label>
-                    <input onChange={(e) => this.handleChangeUsername(e)} type="username" className="form-control" placeholder="Enter Username" />
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input onChange={(e) => this.handleChangePassword(e)} type="password" className="form-control" placeholder="Enter password" />
-                </div>
-                <Button type="submit">Log In</Button><br></br>
-                
-            </form> */}
 
             <Button  onClick={this.props.showRegisterForm}>Create an Account</Button>
             </div>

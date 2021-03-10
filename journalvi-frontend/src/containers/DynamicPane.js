@@ -11,7 +11,6 @@ import About from '../components/About.js'
 
 
 
-
 export default class DynamicPane extends React.Component{
     render(){
         console.log(this.props.entries)

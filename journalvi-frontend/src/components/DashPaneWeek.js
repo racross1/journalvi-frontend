@@ -2,13 +2,6 @@ import React from "react";
 import Table from 'react-bootstrap/Table'
 import {format, addDays} from "date-fns";
 
-
-
-let posColor = '65, 179, 163'
-let negColor = '226, 125, 96'
-let neutColor = '232, 168, 12'
-let mixedColor = '195, 141, 158'
-
 const DashPaneWeek = ({selectedEntries}) => {
  
     function getMostPosDay(entries) {    
@@ -53,7 +46,7 @@ const DashPaneWeek = ({selectedEntries}) => {
       let maxNegAvg = maxInArr(negAvgs)
       let result = [format(parseEntryDate(negAvgsObj[maxNegAvg].date), dateFormat), `${(maxNegAvg * 100).toFixed(1)}%`]
       return result
-}
+    }
 
     function parseEntryDate(date){
       let d = new Date(date)
@@ -61,61 +54,61 @@ const DashPaneWeek = ({selectedEntries}) => {
       return dPlusOne
     }
  
-  function maxInArr(arr) {
-    let sorted = arr.sort((a, b) => a-b).reverse()
+    function maxInArr(arr) {
+        let sorted = arr.sort((a, b) => a-b).reverse()
   
-      return sorted[0]
-  }
+        return sorted[0]
+    }
 
-  function getMostPosToD(entries) {
-    let compareData = {}
+    function getMostPosToD(entries) {
+        let compareData = {}
+        
+        compareData['Morning'] = entries.filter(entry => entry.scores[0].sentiment === 'POSITIVE').length
+        compareData['Afternoon'] = entries.filter(entry => entry.scores[1].sentiment === 'POSITIVE').length
+        compareData['Evening'] = entries.filter(entry => entry.scores[2].sentiment === 'POSITIVE').length
     
-    compareData['Morning'] = entries.filter(entry => entry.scores[0].sentiment === 'POSITIVE').length
-    compareData['Afternoon'] = entries.filter(entry => entry.scores[1].sentiment === 'POSITIVE').length
-    compareData['Evening'] = entries.filter(entry => entry.scores[2].sentiment === 'POSITIVE').length
+        let sortable = [];
+        for (let timeOfDay in compareData) {
+            sortable.push([timeOfDay, compareData[timeOfDay]]);
+        }
+
+        let max = sortable.sort((a, b) => a[1] - b[1])[2][0]
+        return max   
+    }
+
+
+    function getMostNegToD(entries) {
+        let compareData = {}
+  
+        compareData['Morning'] = entries.filter(entry => entry.scores[0].sentiment === 'NEGATIVE').length
+        compareData['Afternoon'] = entries.filter(entry => entry.scores[1].sentiment === 'NEGATIVE').length
+        compareData['Evening'] = entries.filter(entry => entry.scores[2].sentiment === 'NEGATIVE').length
+        
+        let sortable = [];
+        for (let timeOfDay in compareData) {
+            sortable.push([timeOfDay, compareData[timeOfDay]]);
+        }
+        
+        let max = sortable.sort((a, b) => a[1] - b[1])[2][0]
+        return max   
+    }
    
-    let sortable = [];
-for (let timeOfDay in compareData) {
-    sortable.push([timeOfDay, compareData[timeOfDay]]);
-}
+    function getMostPrevalentSentiment(entries) {
+        let compareData = {}
+        compareData['Positive'] = entries.filter(entry => entry.agg_score_key === 'POSITIVE').length
+        compareData['Negative'] = entries.filter(entry => entry.agg_score_key === 'NEGATIVE').length
+        compareData['Neutral'] = entries.filter(entry => entry.agg_score_key === 'NEUTRAL').length
+        compareData['Mixed'] = entries.filter(entry => entry.agg_score_key === 'MIXED').length
+        
+        let sortable = [];
+        for (let sentiment in compareData) {
+            sortable.push([sentiment, compareData[sentiment]]);
+        }
+        
+        let max = sortable.sort((a, b) => a[1] - b[1])[3][0]
 
-  let max = sortable.sort((a, b) => a[1] - b[1])[2][0]
-  return max   
-}
-
-
-function getMostNegToD(entries) {
-  let compareData = {}
-  
-  compareData['Morning'] = entries.filter(entry => entry.scores[0].sentiment === 'NEGATIVE').length
-  compareData['Afternoon'] = entries.filter(entry => entry.scores[1].sentiment === 'NEGATIVE').length
-  compareData['Evening'] = entries.filter(entry => entry.scores[2].sentiment === 'NEGATIVE').length
- 
-  let sortable = [];
-for (let timeOfDay in compareData) {
-  sortable.push([timeOfDay, compareData[timeOfDay]]);
-}
-
-let max = sortable.sort((a, b) => a[1] - b[1])[2][0]
-return max   
-}
-   
-function getMostPrevalentSentiment(entries) {
-  let compareData = {}
-  compareData['Positive'] = entries.filter(entry => entry.agg_score_key === 'POSITIVE').length
-  compareData['Negative'] = entries.filter(entry => entry.agg_score_key === 'NEGATIVE').length
-  compareData['Neutral'] = entries.filter(entry => entry.agg_score_key === 'NEUTRAL').length
-  compareData['Mixed'] = entries.filter(entry => entry.agg_score_key === 'MIXED').length
-  
-  let sortable = [];
-  for (let sentiment in compareData) {
-    sortable.push([sentiment, compareData[sentiment]]);
-  }
-  
-  let max = sortable.sort((a, b) => a[1] - b[1])[3][0]
-
-  return max   
-}
+        return max   
+    }
 
     return (
       
@@ -170,7 +163,7 @@ function getMostPrevalentSentiment(entries) {
           </Table>
         
       </div>
-    );
+    )
   
 }
 export default DashPaneWeek;

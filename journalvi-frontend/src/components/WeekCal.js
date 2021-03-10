@@ -1,27 +1,8 @@
 import React from "react";
-import {format, subMonths, addMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, isSameWeek, addWeeks, subWeeks} from "date-fns";
+import {format, startOfWeek, endOfWeek, addDays, addWeeks, subWeeks} from "date-fns";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Popover from 'react-bootstrap/Popover'
-import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
-
-
-// import { connect } from 'react-redux';
-// import { changeMonth } from '../actions/times.js';
-
-// --orange-color: rgb(226, 125, 96);
-// --light-blue-color: rgb(133,220,186);
-// --yellow-color: rgb(232, 168, 124);
-// --purple-color: rgb(195, 141, 158);
-// --teal-color: rgb( 65,179,163);
-
-//colors
-// let posColor = '40,167,69'
-// let negColor = '220,53,69'
-// let neutColor = '255,193,7'
-// let mixedColor = '0,123,255'
 
 let posColor = '65, 179, 163'
 let negColor = '226, 125, 96'
@@ -58,33 +39,28 @@ class WeekCal extends React.Component {
   renderDays() {
     const dateFormat = "EEEE";
     const days = [];
-    // debugger
+  
     let startDate = startOfWeek(this.state.currentWeek);
     
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-left" key={i}>
           {format(addDays(startDate, i), dateFormat)}
-        
-        
         </div>
       );
     }
-    // debugger
+   
     return <div className="days row">{days}</div>;
   }
 
   renderCells() {
-    const { currentWeek, selectedDate } = this.state;
+    const { currentWeek} = this.state;
     const weekStart = startOfWeek(currentWeek);
     const weekEnd = endOfWeek(weekStart);
     const startDate = startOfWeek(weekStart);
     const endDate = endOfWeek(weekEnd);
 
-     
-
     const dateFormat = "d";
-    const rows = [];
     
     let days = [];
     let day = startDate;
@@ -110,7 +86,6 @@ class WeekCal extends React.Component {
             className={`col cell`}
             key={day}
             onClick={() => this.handleDateClick(cloneDay)}
-            // onClick={() => this.onDateClick(parse(cloneDay))}
             style={{background: this.matchColor(day)}}
             >
             <span className="number">{formattedDate}</span>
@@ -160,15 +135,7 @@ class WeekCal extends React.Component {
         );
         day = addDays(day, 1);
       }
-    //   rows.push(
-    //     <div className="row" key={day}>
-    //       {days}
-    //     </div>
-    //   );
-    //   days = [];
-    // }
-
-    // return <div className="body">{rows}</div>;
+    
     return <div className="row" key={day}>
     {days}
   </div>
@@ -182,20 +149,10 @@ class WeekCal extends React.Component {
     }
   }
 
-
   onDateClick = day => {
     this.setState({
       selectedDate: day
     });
-  };
-
-  nextMonth = () => {
-    let nextM = addMonths(this.state.currentMonth, 1)
-    this.props.setMonth(nextM)
-    this.setState({
-      currentMonth: addMonths(this.state.currentMonth, 1)
-    });
-
   };
 
   nextWeek = () => {
@@ -206,15 +163,6 @@ class WeekCal extends React.Component {
     });
   }
 
-  prevMonth = () => {
-    let prevM = subMonths(this.state.currentMonth, 1)
-    // this.props.setMonth(prevM)
-    this.setState({
-      currentMonth: subMonths(this.state.currentMonth, 1)
-    });
-   
-  };
-
   prevWeek = () => {
     let prevW = subWeeks(this.state.currentWeek, 1)
     this.props.setWeek(prevW)
@@ -224,13 +172,11 @@ class WeekCal extends React.Component {
   }
 
 
-
-
   renderPopoverContent(day){
       
     if (this.matchDatesForClick(day)) {
         let entry = this.matchDatesForClick(day)
-        // console.log(entry)
+    
           return <div> 
             <em><strong>Aggregate Entry Sentiment:</strong></em> 
             <br></br><br></br>
@@ -314,7 +260,6 @@ showAggScore = (agg_score) => {
 }
 
   compareDates = (day) => {
-    // let parsedDayDate = this.parseCalDate(day)
     let entryObj = {}
     let entries = this.props.entries
     
@@ -381,7 +326,6 @@ matchPromptColor = (day, timeOfDay) => {
   }
 
   dayColor = (entry) => {
-    // console.log(this.state.entry.prompts[0].prompt)
     let entryScore = entry.agg_score_key
     let scoreVal = entry.agg_score - 0.1
    
@@ -415,7 +359,6 @@ promptColor = (score) => {
 }
 
   render() {
-    // console.log(this.props.entries)
     return (
       <div className='calendar-week-box'>
       <div className="calendar-week">
@@ -428,38 +371,4 @@ promptColor = (score) => {
   }
 }
 
-// export default connect(null, {changeMonth})(Calendar);
 export default WeekCal
-
-
-//set header to week of start date
-//week always starts on Monday
-//set header to "week starting: date"
-//add 3 rows to each day
-//do the same way before it added rows except inside of current day instead of 
-//days inside of row (basically inverting what was done before)
-
-
-
-//   {/* <br></br><br></br><br></br>
-//             <span>Hello</span>
-//             <br></br><br></br><br></br> */}
-//             <div className={`col cell`} 
-//             style={{background:'gray'}}>
-//             Morning
-//             </div>
-//             <div className={`col cell`} 
-//             style={{background:'light blue'}}>
-//             Afternoon
-//             </div>
-//             {/* <br></br><br></br><br></br>
-//             <span>
-//             Afternoon
-//             </span>
-//             <br></br><br></br><br></br>
-//             <span>
-//             Evening
-//             </span> */}
-
-//             {/* <span className="bg">{formattedDate}</span> */}
-//           {/* </div> */}

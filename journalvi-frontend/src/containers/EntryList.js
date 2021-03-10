@@ -8,18 +8,6 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
 
-// --orange-color: rgb(226, 125, 96);
-// --light-blue-color: rgb(133,220,186);
-// --yellow-color: rgb(232, 168, 124);
-// --purple-color: rgb(195, 141, 158);
-// --teal-color: rgb( 65,179,163);
-
-//colors
-// let posColor = '40,167,69'
-// let negColor = '220,53,69'
-// let neutColor = '255,193,7'
-// let mixedColor = '0,123,255'
-
 let posColor = '65, 179, 163'
 let negColor = '226, 125, 96'
 let neutColor = '232, 168, 12'

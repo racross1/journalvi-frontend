@@ -83,29 +83,6 @@ class SignUpForm extends Component {
 
             <Button  onClick={this.props.showRegisterForm}>Already registered?</Button>
                 
-                
-                
-                
-                
-                {/* <form onSubmit={(e) => this.handleSubmit(e)} >
-                    <h5>Sign Up</h5>
-
-                    <div className="form-group">
-                        <label>Username</label>
-                        <input onChange={(e) => this.handleChangeUsername(e)} type="text" className="form-control" placeholder="Enter Username" />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input onChange={(e) => this.handleChangePassword(e)} type="password" className="form-control" placeholder="Enter password" />
-                    </div>
-
-    
-                    <button type="submit" className="btn btn-primary btn-block">Sign Up</button><br></br>
-                </form>
-
-             <button  onClick={this.props.showRegisterForm} className="btn btn-primary btn-block">Already registered?</button>
-             */}
             </div> 
         );
     }
