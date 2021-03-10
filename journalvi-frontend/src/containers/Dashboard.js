@@ -374,7 +374,7 @@ render(){
            {this.state.display === 'month' ? <div className='month-display'>
            
            
-           <Calendar entries={this.props.entries} setMonth={this.setMonth}/>
+           <div className='month-box'><Calendar entries={this.props.entries} setMonth={this.setMonth}/></div>
 
            <h2 className='dashboard-header'>Your Month at a Glance</h2>
            <Row>
