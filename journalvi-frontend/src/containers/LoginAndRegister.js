@@ -1,6 +1,7 @@
 import React from 'react' 
 import Login from '../components/Login.js'
 import SignUpForm from '../components/SignUpForm.js'
+import '../LoginAndRegister.css'; 
 
 
 export default class LoginAndRegister extends React.Component {
@@ -19,13 +20,14 @@ export default class LoginAndRegister extends React.Component {
     
     render() {
         return(
+          
             <div className='login-box'>
                 <div>
-                    <h3>Welcome to JournalVi!</h3>
+                    <h3>Welcome to JournalVi</h3>
                 </div>
             {this.state.toggle === false ? <Login showRegisterForm={this.showRegisterForm} handleLogin={this.props.handleLogin}/> : <SignUpForm showRegisterForm={this.showRegisterForm} handleLogin={this.props.handleLogin}/> }
-
-            </div> 
+              
+            </div>
         )
     }
 }

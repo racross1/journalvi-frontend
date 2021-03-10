@@ -84,7 +84,7 @@ class CreateEntry extends React.Component{
                     <Form.Label>1. How was your morning?</Form.Label>
                     <Form.Control as="textarea" rows={3} name='How was your morning?' onChange={this.handleChange}/>
                     <Form.Text className="text-muted">
-                    Limit [tbd] characters
+                    Required Field
                     </Form.Text>
                 </Form.Group>
 
@@ -92,7 +92,7 @@ class CreateEntry extends React.Component{
                     <Form.Label>2. How was your afternoon?</Form.Label>
                     <Form.Control as="textarea" rows={3} name='How was your afternoon?' onChange={this.handleChange}/>
                     <Form.Text className="text-muted">
-                    Limit [tbd] characters
+                    Required Field
                     </Form.Text>
                 </Form.Group>
 
@@ -100,7 +100,7 @@ class CreateEntry extends React.Component{
                     <Form.Label>3. How was your evening?</Form.Label>
                     <Form.Control as="textarea" rows={3} name='How was your evening?' onChange={this.handleChange}/>
                     <Form.Text className="text-muted">
-                    Limit [tbd] characters
+                    Required Field
                     </Form.Text>
                 </Form.Group>
 

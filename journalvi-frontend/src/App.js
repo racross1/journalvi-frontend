@@ -39,20 +39,13 @@ state = {
       loggedIn: false 
     })
   }
-  //make this in redux
-  // handleUserSession = (user) => {
-    
-  //   // sessionStorage.setItem('token', user.jwt)
-  //   this.setState({
-  //     userData: user.user,
-  //   })
-  // }
+  
   
     render() {
       
       return (
       <div className="App">
-       {/* {sessionStorage.getItem('token') !== null ? <LoggedIn userData={this.state.userData} /> : <LoginAndRegister handleUserSession={this.handleUserSession} /> }     */}
+       
        {sessionStorage.getItem('token') !== null ? <MainPage logout={this.logout}/> : <LoginAndRegister handleLogin={this.handleLogin}/> }    
 
       </div>

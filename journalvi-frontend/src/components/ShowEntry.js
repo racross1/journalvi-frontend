@@ -98,7 +98,7 @@ class ShowEntry extends React.Component{
     createCards = (p, idx) => {
         let score = this.state.entry.scores[idx]
         
-        return (<div key={`${idx}`}>
+        return (<div className='showpage' key={`${idx}`}>
             <Card className='summary-card'>
                 <Card.Header className='prompt-cell'><span className='head-label'>Prompt:</span> {p.prompt}</Card.Header>
                 <Card.Body >

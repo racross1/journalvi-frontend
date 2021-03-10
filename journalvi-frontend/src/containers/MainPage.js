@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar.js'
 import DynamicPane from './DynamicPane.js'
 import { connect } from 'react-redux';
 import { fetchEntries } from '../actions/entries.js'
-
+import '../App.css'
 
 
 

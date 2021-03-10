@@ -21,8 +21,9 @@ const SentimentPieChart = ({selectedEntries, currentMonthDisplay}) => {
     }
  
     return (
-      <div style={{ width: "100%", height: "100%" }}>
+      <div  style={{ width: "100%", height: "100%" }}>
         <Plot
+          className='chart'
           data={[
               {
                   values: getSentimentCounts(selectedEntries),

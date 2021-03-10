@@ -12,6 +12,7 @@ const MonthGraphAft = ({x, yPos, yNeg, yNeut, yMixed, currentMonthDisplay, revis
     return (
         <div style={{ width: '100%', height: '100%' }} id='trend-graph-month'>
         <Plot
+            className='chart'
             data={[
                 {
                     x: x,

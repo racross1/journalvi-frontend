@@ -57,7 +57,7 @@ const DashPaneMonth = ({selectedEntries}) => {
  
   function maxInArr(arr) {
     let sorted = arr.sort((a, b) => a-b).reverse()
-    console.log(sorted)
+    
       return sorted[0]
   }
 
