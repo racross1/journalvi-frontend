@@ -190,10 +190,6 @@ div.content {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.entry-list{
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
 .header-row{
   position: relative;
@@ -291,6 +287,8 @@ div.content {
 .entry-list{
   margin: 20px;
   background-color: var(--paper-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 
@@ -830,4 +828,34 @@ main {
 
 .calendar-week .date-num-row {
   border: 1px solid black;
+}
+
+
+.about {
+  margin: 40px;
+  background-color: var(--paper-background);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.about-body{
+  text-align: left;
+  margin: 20px;
+}
+
+.about-heading{
+  font-family: 'Amatic SC';
+}
+
+.about-section-heading{
+  font-family: 'Amatic SC';
+  color: #6B7A8F;
+}
+
+.about-cell{
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  font-weight: bold;
+  padding: 30px;
 }
