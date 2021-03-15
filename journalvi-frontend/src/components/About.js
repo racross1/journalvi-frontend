@@ -36,7 +36,7 @@ class About extends React.Component{
             The sentiment score has 2 main parts:
             <br></br><br></br>
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- Comprehend's assessment of the predominate sentiment of the text.<br></br> 
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- Comprehend's <strong>confidence score</strong> that the sentiment of the text is Positive, Negative, Neutral, Mixed.
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;- Comprehend's <strong>confidence score</strong> that the sentiment of the text is Positive, Negative, Neutral and Mixed.
             <br></br>
             <br></br>
             The first part, Comprehend's assessment of the sentiment, is a single word response of "POSTIVE", "NEGATIVE", "NEUTRAL", or "MIXED".
@@ -108,9 +108,11 @@ class About extends React.Component{
             </Row>
             <br></br><br></br><br></br>
             For each entry you'll see the color associated with the sentiment for each prompt. 
-            Also, the corresponding sentiment color, will be darker, the higher it is. For example, a sentiment score of positive that is 99.9% will show up as a darker green than a sentiment score that is 75.0% positive.
+            Also, the corresponding sentiment color, will be darker, the higher it is. For example, a sentiment score of "POSITIVE" with a confidence score for positive that is 99.9% will show up as a darker green than a sentiment score of "POSITIVE" that only has a 75.0% positive confidence score.
             <br></br><br></br>
-            So that's the scoring for each prompt in a single entry. One more output we show you is what we call the <strong>aggregate day score</strong>. This is our calculation and to get it, we take the average of each sentiment across all 3 of your prompts (i.e. we add the positive sentiment score for morning, afternoon and evening prompts and divide the sum by 3 and we do the same for negative neutral and mixed). 
+            So that's the scoring for each prompt in a single entry. One more output we show you is what we call the <strong>aggregate day score</strong>. 
+            <br></br><br></br>
+            For the aggregate day score, we take the average of each sentiment across all 3 of your prompts (i.e. we add the positive sentiment score for morning, afternoon and evening prompts and divide the sum by 3 and we do the same for negative neutral and mixed). 
             <br></br><br></br>
             This gives us 4 averages (one for each of the 4 sentiments). We then take the highest of those 4 averages and assign it to your entry as the aggregate day score. This is meant to give a sense of the most predominant sentiment for a given day!
             <br></br><br></br>
