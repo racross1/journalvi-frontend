@@ -7,18 +7,20 @@ import DropdownButton from 'react-bootstrap/DropdownButton'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Button from 'react-bootstrap/Button'
+import { connect } from 'react-redux';
 
 let posColor = '65, 179, 163'
 let negColor = '226, 125, 96'
 let neutColor = '232, 168, 12'
 let mixedColor = '195, 141, 158'
 
-export default class EntryList extends React.Component{
+class EntryList extends React.Component{
   state = {
       selectedEntries:[]
   }
 
     componentDidMount(){
+        
         this.showAllEntries()
     }
     
@@ -115,6 +117,8 @@ export default class EntryList extends React.Component{
     }
     
     render(){
+        // console.log(this.props.entries)
+        // console.log(this.props.entries.length)
         return (
         <div  className='entry-list'>
             <div className='entry-list-header'>
@@ -195,3 +199,11 @@ export default class EntryList extends React.Component{
             )
         }
     }
+
+function mapStateToProps(state){
+    return {
+        entries: state.entryReducer.entries
+    }
+}
+
+export default connect(mapStateToProps)(EntryList);

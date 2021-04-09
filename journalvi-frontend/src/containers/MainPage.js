@@ -20,7 +20,7 @@ class MainPage extends React.Component {
         return (
         <div className="main-page">
         <Navbar logout={this.props.logout}/>
-        {this.props.requesting ? "Loading page..." : <DynamicPane entries={this.props.entries}/>}
+        {this.props.requesting ? "Loading Page..." : <DynamicPane entries={this.props.entries}/>}
         </div>
     );
     }

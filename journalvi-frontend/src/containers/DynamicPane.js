@@ -7,12 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import Dashboard from './Dashboard.js'
 import About from '../components/About.js'
+// import { connect } from 'react-redux';
 
 
-
-export default class DynamicPane extends React.Component{
+class DynamicPane extends React.Component{
+    
     render(){
-        console.log(this.props.entries)
         return (
         <div  id="dynamic-pane" className='right-page'>
             <PageHeader/>    
@@ -23,7 +23,7 @@ export default class DynamicPane extends React.Component{
                 <Route exact path='/about' component={About}></Route>
                 <Route exact path="/entries/new" component={CreateEntry} />
                 <Route exact path="/entries" render={() => {
-                    return <EntryList entries={this.props.entries}/>
+                    return this.props.requesting ? "Loading Page..." : <EntryList />
                     }} />
                 <Route exact path="/entries/:id" render={(routerProps) => {
                     let entry = this.props.entries.find(ent => ent.id === parseInt(routerProps.match.params.id))
@@ -39,3 +39,15 @@ export default class DynamicPane extends React.Component{
     
   
 }
+
+// function mapStateToProps (state) {
+//     debugger
+//     return {
+//         entries: state.entryReducer.entries
+//     }
+
+// }
+
+// export default connect(mapStateToProps)(DynamicPane);
+
+export default DynamicPane

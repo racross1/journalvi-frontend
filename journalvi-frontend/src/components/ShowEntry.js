@@ -6,18 +6,25 @@ import Col from 'react-bootstrap/Col'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Container from 'react-bootstrap/Container'
 import Popover from 'react-bootstrap/Popover'
+import Button from 'react-bootstrap/Button'
+import {compose} from "redux"
+import { withRouter } from "react-router"
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { deleteEntry } from '../actions/entries.js'
+
 
 let posColor = '65, 179, 163'
 let negColor = '226, 125, 96'
 let neutColor = '232, 168, 12'
 let mixedColor = '195, 141, 158'
-            
-
 
 class ShowEntry extends React.Component{
     state = {
-        entry: false
+        entry: false,
+        deleted: false
     }
+
 
     componentDidMount(){
         let entry = this.props.entry
@@ -28,12 +35,13 @@ class ShowEntry extends React.Component{
 
     }
 
-    componentWillUnmount = () => {
+    handleDelete = () => {
+        let ent = this.state.entry
         this.setState({
-            entry: false
-        })
+            deleted: true
+            }, () => this.props.deleteEntry(ent.id))
     }
-    
+
     parseDate = (date) => {
         //add one day to each to get correct date
         let d = new Date(date)
@@ -128,11 +136,12 @@ class ShowEntry extends React.Component{
 
 
     render(){
-        console.log(this.props.entry)
+        // console.log(this.props.entry)
         
         return (
             <div className='right-pane-show-page'> 
-                {!this.state.entry ? null: <div>
+                
+                {this.state.deleted ? <Redirect to={`/entries`}/> : !this.state.entry ? null: <div>
                     <Row className='header-row'>
                         <Col className="head-label" sm={2}>Entry Date:</Col> 
                         <Col sm={3} className='date-col'> {this.parseDate(this.state.entry.date)}</Col>
@@ -168,10 +177,16 @@ class ShowEntry extends React.Component{
                     
                     </div>}
           
+          <Button onClick={() => { window.confirm('Are you sure you want to delete this entry?') && this.handleDelete() } }>Delete Entry</Button>
             </div>
         )
     }
 }
 
 
-export default ShowEntry
+
+
+export default compose(
+    withRouter, 
+    connect(null, { deleteEntry })
+    )(ShowEntry);
